@@ -1,6 +1,6 @@
 var QRCode = require('qrcode')
 const { parseISO } = require('date-fns');
-import { zonedTimeToUtc } from 'date-fns-tz';
+const { zonedTimeToUtc } = require('date-fns-tz');
 
 class QrCodeController {
   async index(req, res) {
