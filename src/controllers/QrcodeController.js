@@ -14,7 +14,7 @@ class QrCodeController {
     */
 
     QRCode.toString(`${date}`, { type: 'svg' }, function (err, url) {
-      return res.send(url, newDate);
+      return res.send(url);
     });
   }
 }
