@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.13.2"
+    "mongoose": "^5.13.2",
+    "qrcode": "^1.4.4"
   }
 }
