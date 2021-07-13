@@ -4,13 +4,16 @@ const { zonedTimeToUtc } = require('date-fns-tz');
 
 class QrCodeController {
   async index(req, res) {
+
     let date = new Date();
+    /*
     let dateParser = parseISO(date);
     const newDate = zonedTimeToUtc(dateParser, 'America/Sao_Paulo');
 
     console.log(newDate);
+    */
 
-    QRCode.toString('I am a pony!', { type: 'svg' }, function (err, url) {
+    QRCode.toString(date, { type: 'svg' }, function (err, url) {
       return res.send(url, newDate);
     });
   }
