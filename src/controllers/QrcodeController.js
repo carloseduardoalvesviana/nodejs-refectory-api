@@ -13,7 +13,7 @@ class QrCodeController {
     console.log(newDate);
     */
 
-    QRCode.toString(`${date}`, { type: 'svg' }, function (err, url) {
+    QRCode.toDataURL(`${date}`, { type: 'svg' }, function (err, url) {
       return res.send(url);
     });
   }
