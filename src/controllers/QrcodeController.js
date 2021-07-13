@@ -8,6 +8,8 @@ class QrCodeController {
     let dateParser = parseISO(date);
     const newDate = zonedTimeToUtc(dateParser, 'America/Sao_Paulo');
 
+    console.log(newDate);
+
     QRCode.toString('I am a pony!', { type: 'svg' }, function (err, url) {
       return res.send(url, newDate);
     });
