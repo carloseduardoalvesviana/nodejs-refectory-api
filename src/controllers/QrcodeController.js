@@ -6,16 +6,19 @@ class QrCodeController {
   async index(req, res) {
 
     let date = new Date();
+
+    return res.json(date);
     /*
     let dateParser = parseISO(date);
     const newDate = zonedTimeToUtc(dateParser, 'America/Sao_Paulo');
 
     console.log(newDate);
-    */
+  
 
     QRCode.toDataURL(`${date}`, { type: 'svg' }, function (err, url) {
-      return res.send(url);
-    });
+      
+    });]
+    */
   }
 }
 

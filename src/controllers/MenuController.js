@@ -2,7 +2,8 @@ const MenuModel = require('../models/Menu');
 
 class MenuController {
   async store(req, res) {
-    await MenuModel.create(req.body);
+    const response = await MenuModel.create(req.body);
+    return res.json(response);
   }
 }
 
