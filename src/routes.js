@@ -11,6 +11,7 @@ routes.get('/', (req, res) => res.json({ message: 'ok' }));
 routes.get('/qrcode', QrcodeController.index);
 routes.post('/menu', MenuController.store);
 routes.post('/student', StudentController.store);
+routes.get('/menu', MenuController.index);
 routes.post('/permission', PermissionController.store)
 
 module.exports = routes;
