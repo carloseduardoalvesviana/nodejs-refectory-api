@@ -11,6 +11,7 @@ routes.get('/', (req, res) => res.json({ message: 'ok' }));
 routes.post('/menu', MenuController.store);
 routes.get('/menu', MenuController.index);
 routes.put('/menu', MenuController.update);
+routes.delete('/menu', MenuController.delete);
 
 routes.get('/qrcode', QrcodeController.index);
 routes.post('/student', StudentController.store);

@@ -6,6 +6,12 @@ class MenuController {
     return res.json(response);
   }
 
+  async delete(req, res) {
+    const id = req.body.id;
+    await MenuModel.findOneAndDelete({ _id: id });
+    return res.send();
+  }
+
   async store(req, res) {
     const response = await MenuModel.create(req.body);
     return res.json(response);
