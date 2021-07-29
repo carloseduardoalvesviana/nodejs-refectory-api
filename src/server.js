@@ -10,6 +10,7 @@ mongoose.connect('mongodb+srv://ifpi:ifpi@clusterifpi.gzbaa.mongodb.net/refeitor
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 app.use(routes);
 
 app.listen(process.env.PORT || 3000);
