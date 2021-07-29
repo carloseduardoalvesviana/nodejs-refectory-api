@@ -14,6 +14,6 @@ routes.put('/menu', MenuController.update);
 
 routes.get('/qrcode', QrcodeController.index);
 routes.post('/student', StudentController.store);
-routes.post('/permission', PermissionController.store)
+routes.post('/permission', PermissionController.store);
 
 module.exports = routes;

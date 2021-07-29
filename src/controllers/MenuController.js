@@ -23,9 +23,12 @@ class MenuController {
       description, title, date, type
     }
 
-    await MenuModel.findOneAndUpdate({ _id: id }, data);
-
-    const response = await MenuModel.find();
+    const response  = await MenuModel.findOneAndUpdate({ _id: id }, {
+      description: description, 
+      title: title, 
+      date: date, 
+      type: type
+    }, { new: true });
 
     return res.json(response);
   }
