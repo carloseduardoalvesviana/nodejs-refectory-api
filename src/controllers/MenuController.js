@@ -12,25 +12,34 @@ class MenuController {
   }
 
   async update(req, res) {
-    const { id } = req.body;
+    try {
+      const id = req.body.id;
+      const description = req.body.description;
+      const title = req.body.title;
+      const date = req.body.date;
+      const type = req.body.type;
+  
+      let data = {
+        description, 
+        title, 
+        date, 
+        type
+      }
 
-    const description = req.body.description;
-    const title = req.body.title;
-    const date = req.body.date;
-    const type = req.body.type;
-
-    const data = {
-      description, title, date, type
+      console.log(data);
+  
+      const response  = await MenuModel.findOneAndUpdate({ _id: id }, {
+        description: description, 
+        title: title, 
+        date: date, 
+        type: type
+      }, { new: true });
+  
+      return res.json(response);
+    } catch (error) {
+      
     }
-
-    const response  = await MenuModel.findOneAndUpdate({ _id: id }, {
-      description: description, 
-      title: title, 
-      date: date, 
-      type: type
-    }, { new: true });
-
-    return res.json(response);
+   
   }
 }
 
