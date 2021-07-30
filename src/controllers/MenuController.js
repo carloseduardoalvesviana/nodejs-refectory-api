@@ -10,7 +10,7 @@ class MenuController {
     try {
       const {id} = req.body;
       console.log(id);
-      const response = await MenuModel.deleteOne({ _id: id });
+      const response = await MenuModel.findByIdAndDelete({ _id: id });
       return res.json(response);
     } catch (error) {
       return res.json(error);
