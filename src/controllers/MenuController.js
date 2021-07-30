@@ -8,7 +8,7 @@ class MenuController {
 
   async delete(req, res) {
     try {
-      const id = req.body.id;
+      const {id} = req.body;
       console.log(id);
       const response = await MenuModel.deleteOne({ _id: id });
       return res.json(response);
