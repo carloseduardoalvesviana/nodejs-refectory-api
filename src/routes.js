@@ -22,5 +22,7 @@ routes.post('/csv/import', upload.single('csv'), CsvController.read);
 routes.get('/qrcode', QrcodeController.index);
 routes.get('/students', StudentController.index);
 routes.put('/students/permission/yes/:id', PermissionController.update);
+routes.put('/students/permission/no/:id', PermissionController.updateNo);
+
 
 module.exports = routes;
