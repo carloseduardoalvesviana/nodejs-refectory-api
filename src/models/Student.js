@@ -25,6 +25,10 @@ const StudentSchema = new Schema({
   NOME_DA_MAE: String,
   NOME_DO_PAI: String,
   ESTADO_IDENT: String,
+  permission: {
+    type: String,
+    default: 'não'
+  }
 });
 
 module.exports = mongoose.model('Student', StudentSchema);
