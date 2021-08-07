@@ -9,7 +9,7 @@ const CsvController = require('./controllers/CsvController');
 
 const { storage } = require('./helpers/csv');
 const multer = require('multer');
-const upload  = multer({ storage: storage });
+const upload = multer({ storage: storage });
 
 routes.get('/', (req, res) => res.json({ message: 'ok' }));
 routes.post('/menu', MenuController.store);
@@ -21,6 +21,6 @@ routes.post('/csv/import', upload.single('csv'), CsvController.read);
 
 routes.get('/qrcode', QrcodeController.index);
 routes.get('/students', StudentController.index);
-routes.post('/permission', PermissionController.store);
+routes.put('/students/permission/yes/:id', PermissionController.update);
 
 module.exports = routes;
