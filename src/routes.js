@@ -26,6 +26,7 @@ routes.put('/students/permission/no/:id', PermissionController.updateNo);
 routes.get('/menu/:id', MenuController.find);
 
 routes.post('/menu/reserve/:id', ReserveController.store);
+routes.get('/reserves', ReserveController.index);
 routes.post('/login', SessionController.store);
 
 module.exports = routes;
