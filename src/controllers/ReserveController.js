@@ -18,9 +18,9 @@ class ReserveController {
 
     const student = await StudentModel.findOne({ _id: id_student });
 
-    if (student.permission === 'não') {
-      return res.json({ message: 'Voçe não tem permissão' });
-    }
+    // if (student.permission === 'não') {
+    //   return res.json({ message: 'Voçe não tem permissão' });
+    // }
 
     const response = await ReserveModel.create({
       id_menu: id,
