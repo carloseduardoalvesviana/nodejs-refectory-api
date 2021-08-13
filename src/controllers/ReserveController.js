@@ -16,6 +16,8 @@ class ReserveController {
     const { id } = req.params;
     const id_student = req.body.id;
 
+    console.log(id, id_student);
+
     const student = await StudentModel.findOne({ _id: id_student });
 
     // if (student.permission === 'não') {
