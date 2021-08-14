@@ -2,6 +2,22 @@ const ReserveModel = require('../models/Reserve');
 const StudentModel = require('../models/Student');
 
 class ReserveController {
+  async calcel(req, res) {
+    const id = req.params.id;
+    const { reason_for_cancellation } = req.body;
+
+    await ReserveModel.findByIdAndUpdate(
+      { _id: id }, 
+      { 
+        cancel: true, 
+        reason_for_cancellation: reason_for_cancellation 
+      }, 
+      {
+        new: true 
+      });
+    return res.status(200).json({ message: "Reserva cancelada com sucesso!" });
+  }
+
   async index(req, res) {
     const reserves =
       await ReserveModel.find({})

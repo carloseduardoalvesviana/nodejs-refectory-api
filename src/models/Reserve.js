@@ -13,6 +13,14 @@ const ReserveSchema = new Schema({
   approved: {
     type: String,
     default: 'não'
+  },
+  cancel: {
+    type: Boolean,
+    default: false,
+  },
+  reason_for_cancellation: {
+    type: String,
+    default: 'reserva não cancelada'
   }
 }, {
   timestamps: true

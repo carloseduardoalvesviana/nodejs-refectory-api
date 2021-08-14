@@ -29,6 +29,7 @@ routes.put('/students/permission/yes/:id', PermissionController.update);
 routes.put('/students/permission/no/:id', PermissionController.updateNo);
 
 routes.post('/menu/reserve/:id', ReserveController.store);
+routes.put('/reserves/calcel/:id', ReserveController.cancel);
 routes.get('/reserves', ReserveController.index);
 routes.post('/login', SessionController.store);
 routes.post('/reserves/find/:id', ReserveController.find);
