@@ -14,11 +14,13 @@ class ReserveController {
 
   async find(req, res) {
     const id_student = req.params.id;
-    const id_menu = req.body.id;
+    const id = req.body.id;
+
+    console.log(id_student, id);
 
     const reserves = await ReserveModel.find({ 
       id_student: id_student,
-      id_menu: id_menu
+      id_menu: id
     });
 
     return res.status(200).json(reserves);
