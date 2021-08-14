@@ -8,7 +8,7 @@ class ReserveController {
 
     await ReserveModel.findOneAndUpdate({_id: id},
        {cancel: true}, 
-       {reason_for_cancellation: reason_for_cancellation}
+       {reason_for_cancellation: reason_for_cancellation},
        {new: true}
        );
     return res.status(200).json({ 
