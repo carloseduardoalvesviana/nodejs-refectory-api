@@ -6,16 +6,14 @@ class ReserveController {
     const id = req.params.id;
     const { reason_for_cancellation } = req.body;
 
-    await ReserveModel.findByIdAndUpdate(
-      { _id: id }, 
-      { 
-        cancel: true, 
-        reason_for_cancellation: reason_for_cancellation 
-      }, 
-      {
-        new: true 
-      });
-    return res.status(200).json({ message: "Reserva cancelada com sucesso!" });
+    await ReserveModel.findOneAndUpdate({_id: id},
+       {cancel: true}, 
+       {reason_for_cancellation: reason_for_cancellation}
+       {new: true}
+       );
+    return res.status(200).json({ 
+      message: "Reserva cancelada com sucesso!" 
+    });
   }
 
   async index(req, res) {
@@ -34,10 +32,11 @@ class ReserveController {
 
     console.log(id_student, id);
 
-    const reserve = await ReserveModel.findOne({ 
-      id_student: id_student,
-      id_menu: id
-    });
+    const reserve = await ReserveModel.findOne(
+      { 
+        id_student: id_student, id_menu: id
+      }
+    );
 
     return res.status(200).json(reserve);
   }
@@ -48,16 +47,20 @@ class ReserveController {
 
     console.log(id, id_student);
 
-    const student = await StudentModel.findOne({ _id: id_student });
+    const student = await StudentModel.findOne(
+      { _id: id_student }
+    );
 
-    // if (student.permission === 'não') {
-    //   return res.json({ message: 'Voçe não tem permissão' });
+    // if (student.permission == "não") {
+    //   return res.json({ message: 'Vocẽ não tem permissão' });
     // }
 
-    const response = await ReserveModel.create({
-      id_menu: id,
-      id_student: id_student,
-    });
+    const response = await ReserveModel.create(
+      {
+        id_menu: id,
+        id_student: id_student,
+      }
+    );
 
     return res.json(response);
   }
