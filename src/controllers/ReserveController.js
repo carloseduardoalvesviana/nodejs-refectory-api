@@ -6,9 +6,10 @@ class ReserveController {
     const id = req.params.id;
     const { reason_for_cancellation } = req.body;
 
+    console.log(id, reason_for_cancellation);
+
     await ReserveModel.findOneAndUpdate({_id: id},
-       {cancel: true}, 
-       {reason_for_cancellation: reason_for_cancellation},
+       {cancel: true, reason_for_cancellation: reason_for_cancellation}, 
        {new: true}
        );
     return res.status(200).json({ 
