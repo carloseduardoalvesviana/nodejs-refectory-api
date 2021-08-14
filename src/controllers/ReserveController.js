@@ -12,7 +12,7 @@ class ReserveController {
     return res.json(reserves);
   }
 
-  async find() {
+  async find(req, res) {
     const id = req.params.id;
     const reserves = await ReserveModel.find({ 
       id_student: id
