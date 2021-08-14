@@ -2,7 +2,7 @@ const ReserveModel = require('../models/Reserve');
 const StudentModel = require('../models/Student');
 
 class ReserveController {
-  async calcel(req, res) {
+  async cancel(req, res) {
     const id = req.params.id;
     const { reason_for_cancellation } = req.body;
 
