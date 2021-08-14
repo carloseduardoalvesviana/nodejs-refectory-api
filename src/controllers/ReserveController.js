@@ -12,6 +12,14 @@ class ReserveController {
     return res.json(reserves);
   }
 
+  async find() {
+    const id = req.params.id;
+    const reserves = await ReserveModel.find({ 
+      id_student: id
+    });
+    return res.status(200).json(reserves);
+  }
+
   async store(req, res) {
     const { id } = req.params;
     const id_student = req.body.id;

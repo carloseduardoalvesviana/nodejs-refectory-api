@@ -27,6 +27,7 @@ routes.get('/menu/:id', MenuController.find);
 
 routes.post('/menu/reserve/:id', ReserveController.store);
 routes.get('/reserves', ReserveController.index);
+routes.get('/reserves/find/:id', ReserveController.find);
 routes.post('/login', SessionController.store);
 
 module.exports = routes;
