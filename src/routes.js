@@ -15,19 +15,22 @@ const SessionController = require('./controllers/SessionController');
 
 routes.get('/', (req, res) => res.json({ message: 'ok' }));
 routes.post('/csv/import', upload.single('csv'), CsvController.read);
+
 routes.post('/menu', MenuController.store);
 routes.get('/menu', MenuController.index);
 routes.put('/menu', MenuController.update);
 routes.delete('/menu', MenuController.delete);
+routes.get('/menu/:id', MenuController.find);
+
 routes.get('/qrcode', QrcodeController.index);
+
 routes.get('/students', StudentController.index);
 routes.put('/students/permission/yes/:id', PermissionController.update);
 routes.put('/students/permission/no/:id', PermissionController.updateNo);
-routes.get('/menu/:id', MenuController.find);
 
 routes.post('/menu/reserve/:id', ReserveController.store);
 routes.get('/reserves', ReserveController.index);
-routes.get('/reserves/find/:id', ReserveController.find);
+routes.post('/reserves/find/:id', ReserveController.find);
 routes.post('/login', SessionController.store);
 
 module.exports = routes;
