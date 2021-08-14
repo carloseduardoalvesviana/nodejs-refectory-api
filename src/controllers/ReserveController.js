@@ -18,12 +18,12 @@ class ReserveController {
 
     console.log(id_student, id);
 
-    const reserves = await ReserveModel.find({ 
+    const reserve = await ReserveModel.findOne({ 
       id_student: id_student,
       id_menu: id
     });
 
-    return res.status(200).json(reserves);
+    return res.status(200).json(reserve);
   }
 
   async store(req, res) {
