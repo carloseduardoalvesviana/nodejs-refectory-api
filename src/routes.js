@@ -23,6 +23,7 @@ routes.delete('/menu', MenuController.delete);
 routes.get('/menu/:id', MenuController.find);
 
 routes.get('/qrcode', QrcodeController.index);
+routes.post('/qrcode/reserve/:id', QrcodeController.confirm);
 
 routes.get('/students', StudentController.index);
 routes.put('/students/permission/yes/:id', PermissionController.update);

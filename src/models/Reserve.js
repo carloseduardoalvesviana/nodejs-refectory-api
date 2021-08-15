@@ -6,6 +6,10 @@ const ReserveSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Menu'
   },
+  confirm: {
+    type: Boolean,
+    default: false,
+  },
   id_student: {
     type: Schema.ObjectId,
     ref: 'Student'
