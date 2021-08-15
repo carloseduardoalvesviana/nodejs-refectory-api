@@ -1,24 +1,15 @@
-var QRCode = require('qrcode')
-const { parseISO } = require('date-fns');
-const { zonedTimeToUtc } = require('date-fns-tz');
-
 class QrCodeController {
   async index(req, res) {
+    let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
+    let randomPassword;
 
-    let date = new Date();
+    for (i = 0; i < 16; i++) {
+      randomPassword = randomPassword + chars.charAt(
+        Math.floor(Math.random() * chars.length)
+      );
+    }
 
-    return res.json(date);
-    /*
-    let dateParser = parseISO(date);
-    const newDate = zonedTimeToUtc(dateParser, 'America/Sao_Paulo');
-
-    console.log(newDate);
-  
-
-    QRCode.toDataURL(`${date}`, { type: 'svg' }, function (err, url) {
-      
-    });]
-    */
+    return res.status(200).json(randomPassword);
   }
 }
 
