@@ -3,7 +3,7 @@ class QrCodeController {
     let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
     let randomPassword;
 
-    for (i = 0; i < 16; i++) {
+    for (var i = 0; i < 16; i++) {
       randomPassword = randomPassword + chars.charAt(
         Math.floor(Math.random() * chars.length)
       );
