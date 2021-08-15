@@ -7,8 +7,8 @@ const ReserveSchema = new Schema({
     ref: 'Menu'
   },
   confirm: {
-    type: Boolean,
-    default: false,
+    type: String,
+    default: 'não',
   },
   id_student: {
     type: Schema.ObjectId,

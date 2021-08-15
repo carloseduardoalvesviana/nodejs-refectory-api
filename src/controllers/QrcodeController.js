@@ -9,7 +9,7 @@ class QrCodeController {
       return res.status(400).json({ message: 'no token provider' });
     }
 
-    await Reserve.findOneAndUpdate({ _id: id_reserve }, { confirm: true }, { new: true });
+    await Reserve.findOneAndUpdate({ _id: id_reserve }, { confirm: 'sim' }, { new: true });
     
     return res.json({ message: "Reserva confirmada!" });
   }
