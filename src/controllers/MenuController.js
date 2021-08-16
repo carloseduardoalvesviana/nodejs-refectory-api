@@ -22,7 +22,7 @@ class MenuController {
     mesAtual += dataAtual.getMonth() + 1;
     const anoAtual = getYear(dataAtual);
 
-    // console.log(diaAtual, mesAtual, anoAtual);
+    console.log(diaAtual, mesAtual, anoAtual);
 
     response.map(menu => {
       const dayMenuExists = menu.date.split('/')[0];
