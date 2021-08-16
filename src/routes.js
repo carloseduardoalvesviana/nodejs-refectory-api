@@ -18,6 +18,7 @@ routes.post('/csv/import', upload.single('csv'), CsvController.read);
 
 routes.post('/menu', MenuController.store);
 routes.get('/menu', MenuController.index);
+routes.get('/menu/all', MenuController.all);
 routes.put('/menu', MenuController.update);
 routes.delete('/menu', MenuController.delete);
 routes.get('/menu/:id', MenuController.find);

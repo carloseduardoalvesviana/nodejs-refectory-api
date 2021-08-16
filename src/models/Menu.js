@@ -6,6 +6,12 @@ const MenuSchema = new Schema({
   description: String,
   date: String,
   type: String,
+  deadline: {
+    type: String,
+    default: '10'
+  }
+}, {
+  timestamps: true
 });
 
 module.exports = mongoose.model('Menu', MenuSchema);
