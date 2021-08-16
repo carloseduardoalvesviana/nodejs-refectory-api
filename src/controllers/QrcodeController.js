@@ -1,4 +1,5 @@
 const Reserve = require('../models/Reserve');
+const Student = require('../models/Student');
 
 class QrCodeController {
   async confirm(req, res) {
@@ -9,8 +10,12 @@ class QrCodeController {
       return res.status(400).json({ message: 'no token provider' });
     }
 
-    await Reserve.findOneAndUpdate({ _id: id_reserve }, { confirm: 'sim' }, { new: true });
+    const reserve = await Reserve.findOneAndUpdate({ _id: id_reserve }, { confirm: 'sim' }, { new: true });
     
+    const id_student = reserve.id_student;
+
+    await Student.findOneAndUpdate({ _id: id_student }, { permission: 'não' }, { new: true });
+
     return res.json({ message: "Reserva confirmada!" });
   }
 

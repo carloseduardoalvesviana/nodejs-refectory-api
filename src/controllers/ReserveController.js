@@ -9,10 +9,15 @@ class ReserveController {
 
     console.log(id, reason_for_cancellation);
 
-    await ReserveModel.findOneAndUpdate({_id: id},
+    const reserve = await ReserveModel.findOneAndUpdate({_id: id},
        {cancel: true, reason_for_cancellation: reason_for_cancellation}, 
        {new: true}
        );
+      
+    const id_student = reserve.id_student;
+
+    await StudentModel.findOneAndUpdate({ _id: id_student }, { permission: 'não' }, { new: true });
+    
     return res.status(200).json({ 
       message: "Reserva cancelada com sucesso!" 
     });
