@@ -5,6 +5,10 @@ class StudentController {
     const response = await Student.find();
     return res.json(response);
   }
+
+  async store(req, res) {
+    // cadastro de alunos manualmente
+  }
 }
 
 module.exports = new StudentController();

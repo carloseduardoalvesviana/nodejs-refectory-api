@@ -7,19 +7,25 @@ class ReserveController {
     const id = req.params.id;
     const { reason_for_cancellation } = req.body;
 
-    console.log(id, reason_for_cancellation);
+    const reserve = await ReserveModel.findOneAndUpdate(
+      { _id: id },
+      {
+        cancel: true,
+        reason_for_cancellation: reason_for_cancellation
+      },
+      { new: true }
+    );
 
-    const reserve = await ReserveModel.findOneAndUpdate({_id: id},
-       {cancel: true, reason_for_cancellation: reason_for_cancellation}, 
-       {new: true}
-       );
-      
     const id_student = reserve.id_student;
 
-    await StudentModel.findOneAndUpdate({ _id: id_student }, { permission: 'não' }, { new: true });
-    
-    return res.status(200).json({ 
-      message: "Reserva cancelada com sucesso!" 
+    await StudentModel.findOneAndUpdate(
+      { _id: id_student },
+      { permission: 'não' },
+      { new: true }
+    );
+
+    return res.status(200).json({
+      message: "Reserva cancelada com sucesso!"
     });
   }
 
@@ -40,7 +46,7 @@ class ReserveController {
     console.log(id_student, id);
 
     const reserve = await ReserveModel.findOne(
-      { 
+      {
         id_student: id_student, id_menu: id
       }
     );
@@ -53,12 +59,12 @@ class ReserveController {
     const id_student = req.body.id; // id student
 
     const student = await StudentModel.findOne({ _id: id_student });
-    if(!student) {
+    if (!student) {
       return res.json({ message: 'Estudante não encontrado(a)' });
     }
 
     const menu = await MenuModel.findOne({ _id: id });
-    if(!menu) {
+    if (!menu) {
       return res.json({ message: 'Menu não encontrado' });
     }
 
