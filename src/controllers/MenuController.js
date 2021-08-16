@@ -29,7 +29,7 @@ class MenuController {
       const mounthMenuExists = menu.date.split('/')[1];
       const yearMenuExists = menu.date.split('/')[2];
 
-      // console.log(dayMenuExists,mounthMenuExists,yearMenuExists );
+      console.log(dayMenuExists,mounthMenuExists,yearMenuExists );
 
       if(dayMenuExists == diaAtual && mounthMenuExists == mesAtual && yearMenuExists == anoAtual) {
         return res.json(menu);
