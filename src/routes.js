@@ -17,11 +17,11 @@ routes.get('/', (req, res) => res.json({ message: 'ok' }));
 routes.post('/csv/import', upload.single('csv'), CsvController.read);
 
 routes.post('/menu', MenuController.store);
-routes.get('/menu', MenuController.index);
-routes.get('/menu/all', MenuController.all);
+routes.get('/menu', MenuController.findMenuOfDay);
+routes.get('/menu/all', MenuController.index);
 routes.put('/menu', MenuController.update);
 routes.delete('/menu', MenuController.delete);
-routes.get('/menu/:id', MenuController.find);
+routes.get('/menu/:id', MenuController.findOne);
 
 routes.get('/qrcode', QrcodeController.index);
 routes.post('/qrcode/reserve/:id', QrcodeController.confirm);
