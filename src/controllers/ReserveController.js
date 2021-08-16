@@ -1,5 +1,6 @@
 const ReserveModel = require('../models/Reserve');
 const StudentModel = require('../models/Student');
+const MenuModel = require('../models/Menu');
 
 class ReserveController {
   async cancel(req, res) {
@@ -43,18 +44,22 @@ class ReserveController {
   }
 
   async store(req, res) {
-    const { id } = req.params;
-    const id_student = req.body.id;
+    const { id } = req.params; // id menu
+    const id_student = req.body.id; // id student
 
-    console.log(id, id_student);
+    const student = await StudentModel.findOne({ _id: id_student });
+    if(!student) {
+      return res.json({ message: 'Estudante não encontrado(a)' });
+    }
 
-    const student = await StudentModel.findOne(
-      { _id: id_student }
-    );
+    const menu = await MenuModel.findOne({ _id: id });
+    if(!menu) {
+      return res.json({ message: 'Menu não encontrado' });
+    }
 
-    // if (student.permission == "não") {
-    //   return res.json({ message: 'Vocẽ não tem permissão' });
-    // }
+    if (student.permission === "não") {
+      return res.json({ message: 'Vocẽ não tem permissão' });
+    }
 
     const response = await ReserveModel.create(
       {
