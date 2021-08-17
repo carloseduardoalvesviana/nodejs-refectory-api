@@ -6,6 +6,16 @@ class StudentController {
     return res.json(response);
   }
 
+  async delete(req, res) {
+    try {
+      const id = req.params.id;
+      await Student.findOneAndDelete({ _id: id });
+      return res.status(200).json({ message: 'Studante Deletado com sucesso!' });
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+  }
+
   async store(req, res) {
     const {
       data_expedicao,
