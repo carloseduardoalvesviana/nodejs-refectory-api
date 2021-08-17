@@ -14,6 +14,7 @@ const ReserveController = require('./controllers/ReserveController');
 const SessionController = require('./controllers/SessionController');
 const MessageController = require('./controllers/MessageController');
 const TeacherController = require('./controllers/TeacherController');
+const ListAllController = require('./controllers/ListAllController');
 
 // Entry point API
 routes.get('/', (req, res) => res.json({ message: 'Welcome to IFPI API' }));
@@ -62,5 +63,8 @@ routes.post('/menu/reserve/:id', ReserveController.store);
 routes.put('/reserves/cancel/:id', ReserveController.cancel);
 routes.post('/reserves/find/:id', ReserveController.find);
 routes.get('/reserves', ReserveController.index);
+
+// listen
+routes.get('/list/all', ListAllController.index);
 
 module.exports = routes;
