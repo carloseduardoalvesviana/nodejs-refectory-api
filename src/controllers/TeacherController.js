@@ -1,6 +1,11 @@
 const Teacher = require('../models/Teacher');
 
 class TeacherController {
+  async index(req, res) {
+    const teachers = await Teacher.find({});
+    return res.status(200).json(teachers);
+  }
+
   async store(req, res) {
     const {
       name,

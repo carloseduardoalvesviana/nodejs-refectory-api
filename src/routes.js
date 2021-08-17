@@ -49,6 +49,7 @@ routes.delete('/students/:id', StudentController.delete);
 
 // Teachers
 routes.post('/teachers', TeacherController.store);
+routes.get('/teachers', TeacherController.index);
 
 // Import Student
 routes.post('/csv/import', upload.single('csv'), CsvController.read);
@@ -59,7 +60,6 @@ routes.put('/reserves/cancel/:id', ReserveController.cancel);
 routes.post('/reserves/find/:id', ReserveController.find);
 routes.get('/reserves', ReserveController.index);
 
-
 module.exports = routes;
 
-//mensagem = humberto conectar na impressora, logistica
+// mensagem = humberto conectar na impressora, logistica
