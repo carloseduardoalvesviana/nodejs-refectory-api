@@ -6,12 +6,12 @@ class QrCodeController {
     let id_reserve = req.params.id;
     let qrcode = req.body.qrcode;
 
-    if(!qrcode) {
+    if (!qrcode) {
       return res.status(400).json({ message: 'no token provider' });
     }
 
     const reserve = await Reserve.findOneAndUpdate({ _id: id_reserve }, { confirm: 'sim' }, { new: true });
-    
+
     const id_student = reserve.id_student;
 
     await Student.findOneAndUpdate({ _id: id_student }, { permission: 'não' }, { new: true });
