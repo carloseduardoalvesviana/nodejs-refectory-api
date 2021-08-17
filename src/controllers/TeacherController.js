@@ -8,7 +8,7 @@ class TeacherController {
 
   async findOne(req, res) {
     const id = req.params.id;
-    const teacher = await Teacher.findOne({ id: id });
+    const teacher = await Teacher.findOne({ _id: id });
     return res.status(200).json(teacher);
   }
 
