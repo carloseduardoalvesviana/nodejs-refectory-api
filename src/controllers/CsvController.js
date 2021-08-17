@@ -13,9 +13,6 @@ class CsvController {
         }
       })
     });
-
-    // remover 
-
     return res.json({ message: 'sucesso' });
   }
 }

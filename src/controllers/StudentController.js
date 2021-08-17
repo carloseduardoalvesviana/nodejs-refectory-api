@@ -6,6 +6,62 @@ class StudentController {
     return res.json(response);
   }
 
+  async update(req, res) {
+    const id = req.params.id;
+
+    const {
+      data_expedicao,
+      orgao_exp,
+      num_de_identidade,
+      cpf,
+      email,
+      naturalidade,
+      turno,
+      periodo,
+      curso,
+      nascimento,
+      telefones,
+      turma,
+      situacao_periodo,
+      nome,
+      matricula,
+      cidade,
+      bairro,
+      complemento,
+      numero,
+      endereco,
+      nome_da_mae,
+      nome_do_pai,
+      estado_ident,
+    } = req.body;
+
+    await Student.findOneAndUpdate({ _id: id }, {
+      DATA_EXPEDICAO: data_expedicao,
+      ORGAO_EXP: orgao_exp,
+      NUM_DE_IDENTIDADE: num_de_identidade,
+      CPF: cpf,
+      EMAIL: email,
+      TELEFONES: telefones,
+      NATURALIDADE: naturalidade,
+      TURNO: turno,
+      PERIODO: periodo,
+      CURSO: curso,
+      NASCIMENTO: nascimento,
+      TURMA: turma,
+      SITUACAO_PERIODO: situacao_periodo,
+      NOME: nome,
+      MATRICULA: matricula,
+      CIDADE: cidade,
+      BAIRRO: bairro,
+      COMPLEMENTO: complemento,
+      NUMERO: numero,
+      ENDERECO: endereco,
+      NOME_DA_MAE: nome_da_mae,
+      NOME_DO_PAI: nome_do_pai,
+      ESTADO_IDENT: estado_ident,
+    }, { new: true });
+  }
+
   async delete(req, res) {
     try {
       const id = req.params.id;
