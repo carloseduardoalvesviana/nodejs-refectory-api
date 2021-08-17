@@ -29,7 +29,12 @@ class TeacherController {
 
     return res.status(200).json(teacher)
   }
-}
 
+  async delete(req, res) {
+    const id = req.params.id;
+    await Teacher.findOneAndDelete({ _id: id });
+    return res.status(200).json({ message: 'Professor deletado com sucesso!' });
+  }
+}
 
 module.exports = new TeacherController();
