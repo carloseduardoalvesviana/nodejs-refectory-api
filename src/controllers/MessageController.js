@@ -4,9 +4,9 @@ class MessageController {
   async store(req, res) {
     const { message } = req.body;
     const msg = await MessageSchema.create({
-      description: message
+      description: message,
     })
-    return res.json({ message: 'sucesso' });
+    return res.json(msg);
   }
 }
 

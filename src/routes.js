@@ -12,8 +12,9 @@ const StudentController = require('./controllers/StudentController');
 const CsvController = require('./controllers/CsvController');
 const ReserveController = require('./controllers/ReserveController');
 const SessionController = require('./controllers/SessionController');
+const MessageController = require('./controllers/MessageController');
 
-routes.get('/', (req, res) => res.json({ message: 'ok' }));
+routes.get('/', (req, res) => res.json({ message: 'Welcome to IFPI API' }));
 routes.post('/csv/import', upload.single('csv'), CsvController.read);
 
 routes.post('/menu', MenuController.store);
@@ -35,5 +36,7 @@ routes.put('/reserves/cancel/:id', ReserveController.cancel);
 routes.get('/reserves', ReserveController.index);
 routes.post('/login', SessionController.store);
 routes.post('/reserves/find/:id', ReserveController.find);
+
+routes.post('/message', MessageController.store);
 
 module.exports = routes;

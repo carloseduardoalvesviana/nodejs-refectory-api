@@ -13,6 +13,8 @@ const StudentSchema = new Schema({
     type: String,
     default: 'professor'
   }
+}, {
+  timestamps: true
 });
 
 module.exports = mongoose.model('Student', StudentSchema);
