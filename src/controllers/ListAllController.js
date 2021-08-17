@@ -10,7 +10,9 @@ class ListAllController {
       turmas.push(r.CURSO);
     })
 
-    return res.json(turmas);
+    const arrUnique = [...new Set(turmas)];
+
+    return res.json(arrUnique);
   }
 }
 
