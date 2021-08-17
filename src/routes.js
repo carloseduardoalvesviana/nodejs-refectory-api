@@ -63,5 +63,3 @@ routes.post('/reserves/find/:id', ReserveController.find);
 routes.get('/reserves', ReserveController.index);
 
 module.exports = routes;
-
-// mensagem = humberto conectar na impressora, logistica

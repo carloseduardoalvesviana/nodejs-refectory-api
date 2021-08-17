@@ -6,6 +6,12 @@ class TeacherController {
     return res.status(200).json(teachers);
   }
 
+  async findOne(req, res) {
+    const id = req.params.id;
+    const teacher = await Teacher.findOne({ id: id });
+    return res.status(200).json(teacher);
+  }
+
   async update(req, res) {
     const id = req.params.id;
 
