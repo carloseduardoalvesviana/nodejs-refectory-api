@@ -41,7 +41,7 @@ class StudentController {
       estado_ident,
     } = req.body;
 
-    await Student.findOneAndUpdate({ _id: id }, {
+    const student = await Student.findOneAndUpdate({ _id: id }, {
       DATA_EXPEDICAO: data_expedicao,
       ORGAO_EXP: orgao_exp,
       NUM_DE_IDENTIDADE: num_de_identidade,
@@ -66,6 +66,8 @@ class StudentController {
       NOME_DO_PAI: nome_do_pai,
       ESTADO_IDENT: estado_ident,
     }, { new: true });
+
+    return res.status(200).json(student);
   }
 
   async delete(req, res) {
