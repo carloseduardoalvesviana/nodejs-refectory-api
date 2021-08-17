@@ -6,6 +6,33 @@ class TeacherController {
     return res.status(200).json(teachers);
   }
 
+  async update(req, res) {
+    const id = req.params.id;
+
+    const {
+      name,
+      email,
+      password,
+      cpf,
+      rg,
+      phone,
+      state,
+      city,
+      address,
+      number,
+      birth_date,
+      cep,
+    } = req.body;
+
+    const teacher = await Teacher.findOneAndUpdate({ _id: id },
+      {
+        name, email, password, cpf, rg, phone,
+        state, city, address, number, birth_date, cep,
+      }, { new: true });
+
+    return res.status(200).json(teacher);
+  }
+
   async store(req, res) {
     const {
       name,

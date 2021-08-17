@@ -50,6 +50,7 @@ routes.delete('/students/:id', StudentController.delete);
 // Teachers
 routes.post('/teachers', TeacherController.store);
 routes.get('/teachers', TeacherController.index);
+routes.put('/teachers/:id', TeacherController.update);
 routes.delete('/teachers/:id', TeacherController.delete);
 
 // Import Student
