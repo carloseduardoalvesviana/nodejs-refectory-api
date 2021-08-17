@@ -52,6 +52,7 @@ routes.post('/teachers', TeacherController.store);
 routes.get('/teachers', TeacherController.index);
 routes.put('/teachers/:id', TeacherController.update);
 routes.delete('/teachers/:id', TeacherController.delete);
+routes.get('/teachers/:id', TeacherController.findOne);
 
 // Import Student
 routes.post('/csv/import', upload.single('csv'), CsvController.read);
