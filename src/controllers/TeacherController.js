@@ -17,10 +17,12 @@ class TeacherController {
       cep,
     } = req.body;
 
-    await Teacher.create({
+    const teacher = await Teacher.create({
       name, email, password, cpf, rg,
       phone, state, city, address, number, birth_date, cep
     })
+
+    return res.status(200).json(teacher)
   }
 }
 
