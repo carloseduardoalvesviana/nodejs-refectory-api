@@ -13,9 +13,16 @@ const CsvController = require('./controllers/CsvController');
 const ReserveController = require('./controllers/ReserveController');
 const SessionController = require('./controllers/SessionController');
 const MessageController = require('./controllers/MessageController');
+const TeacherController = require('./controllers/TeacherController');
 
+// Entry point API
 routes.get('/', (req, res) => res.json({ message: 'Welcome to IFPI API' }));
-routes.post('/csv/import', upload.single('csv'), CsvController.read);
+
+// Login
+routes.post('/login', SessionController.store);
+
+// Message
+routes.post('/message', MessageController.store);
 
 // Menu
 routes.post('/menu', MenuController.store);
@@ -40,14 +47,19 @@ routes.put('/students/:id', StudentController.update);
 routes.get('/students/:id', StudentController.findOne);
 routes.delete('/students/:id', StudentController.delete);
 
+// Teachers
+routes.post('/teachers', TeacherController.store);
+
+// Import Student
+routes.post('/csv/import', upload.single('csv'), CsvController.read);
+
 // Reserves
 routes.post('/menu/reserve/:id', ReserveController.store);
 routes.put('/reserves/cancel/:id', ReserveController.cancel);
 routes.post('/reserves/find/:id', ReserveController.find);
 routes.get('/reserves', ReserveController.index);
 
-routes.post('/login', SessionController.store);
-
-routes.post('/message', MessageController.store);
 
 module.exports = routes;
+
+//mensagem = humberto conectar na impressora, logistica

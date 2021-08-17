@@ -1,5 +1,5 @@
 professores
 admin
 message-notification
-upload
-heroku
+upload => completed, front => no
+alunos => completed, front => no
