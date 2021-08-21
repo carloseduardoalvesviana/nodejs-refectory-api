@@ -1,9 +1,29 @@
 const Student = require('../models/Student');
+const ReserveModel = require('../models/Reserve');
+const mongoose =require('mongoose')
 
 class StudentController {
   async index(req, res) {
     const response = await Student.find();
     return res.json(response);
+  }
+
+  async findNotConfirm(req, res) {
+    const reserves = await ReserveModel.find({ confirm: "não"});
+
+    let students = [];
+
+    reserves.map(r => {
+      students.push(
+        r.id_student
+      );
+    });
+
+    const studentsFound = await Student.find({
+      _id: students
+    })
+
+    return res.json(studentsFound);
   }
 
   async findOne(req, res) {
