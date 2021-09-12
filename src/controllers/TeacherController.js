@@ -17,23 +17,19 @@ class TeacherController {
 
     const {
       name,
-      email,
-      password,
       cpf,
-      rg,
       phone,
-      state,
-      city,
-      address,
-      number,
-      birth_date,
-      cep,
+      email,
+      code,
     } = req.body;
 
     const teacher = await Teacher.findOneAndUpdate({ _id: id },
       {
-        name, email, password, cpf, rg, phone,
-        state, city, address, number, birth_date, cep,
+        name,
+        cpf,
+        phone,
+        email,
+        code,
       }, { new: true });
 
     return res.status(200).json(teacher);
@@ -42,22 +38,18 @@ class TeacherController {
   async store(req, res) {
     const {
       name,
-      email,
-      password,
       cpf,
-      rg,
       phone,
-      state,
-      city,
-      address,
-      number,
-      birth_date,
-      cep,
+      email,
+      code,
     } = req.body;
 
     const teacher = await Teacher.create({
-      name, email, password, cpf, rg,
-      phone, state, city, address, number, birth_date, cep
+      name,
+      cpf,
+      phone,
+      email,
+      code,
     })
 
     return res.status(200).json(teacher)

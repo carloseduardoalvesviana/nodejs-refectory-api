@@ -1,6 +1,6 @@
 const Student = require('../models/Student');
 const ReserveModel = require('../models/Reserve');
-const mongoose =require('mongoose')
+const ClassModel = require('../models/Class');
 
 class StudentController {
   async index(req, res) {
@@ -9,7 +9,7 @@ class StudentController {
   }
 
   async findNotConfirm(req, res) {
-    const reserves = await ReserveModel.find({ confirm: "não"});
+    const reserves = await ReserveModel.find({ confirm: "não" });
 
     let students = [];
 
@@ -36,55 +36,19 @@ class StudentController {
     const id = req.params.id;
 
     const {
-      data_expedicao,
-      orgao_exp,
-      num_de_identidade,
+      name,
       cpf,
+      phone,
       email,
-      naturalidade,
-      turno,
-      periodo,
-      curso,
-      nascimento,
-      telefones,
-      turma,
-      situacao_periodo,
-      nome,
-      matricula,
-      cidade,
-      bairro,
-      complemento,
-      numero,
-      endereco,
-      nome_da_mae,
-      nome_do_pai,
-      estado_ident,
+      code,
     } = req.body;
 
     const student = await Student.findOneAndUpdate({ _id: id }, {
-      DATA_EXPEDICAO: data_expedicao,
-      ORGAO_EXP: orgao_exp,
-      NUM_DE_IDENTIDADE: num_de_identidade,
-      CPF: cpf,
-      EMAIL: email,
-      TELEFONES: telefones,
-      NATURALIDADE: naturalidade,
-      TURNO: turno,
-      PERIODO: periodo,
-      CURSO: curso,
-      NASCIMENTO: nascimento,
-      TURMA: turma,
-      SITUACAO_PERIODO: situacao_periodo,
-      NOME: nome,
-      MATRICULA: matricula,
-      CIDADE: cidade,
-      BAIRRO: bairro,
-      COMPLEMENTO: complemento,
-      NUMERO: numero,
-      ENDERECO: endereco,
-      NOME_DA_MAE: nome_da_mae,
-      NOME_DO_PAI: nome_do_pai,
-      ESTADO_IDENT: estado_ident,
+      name,
+      cpf,
+      phone,
+      email,
+      code,
     }, { new: true });
 
     return res.status(200).json(student);
@@ -102,56 +66,27 @@ class StudentController {
 
   async store(req, res) {
     const {
-      data_expedicao,
-      orgao_exp,
-      num_de_identidade,
+      name,
       cpf,
+      phone,
       email,
-      naturalidade,
-      turno,
-      periodo,
-      curso,
-      nascimento,
-      telefones,
-      turma,
-      situacao_periodo,
-      nome,
-      matricula,
-      cidade,
-      bairro,
-      complemento,
-      numero,
-      endereco,
-      nome_da_mae,
-      nome_do_pai,
-      estado_ident,
+      code,
+      id,
     } = req.body;
 
     let student = await Student.create({
-      DATA_EXPEDICAO: data_expedicao,
-      ORGAO_EXP: orgao_exp,
-      NUM_DE_IDENTIDADE: num_de_identidade,
-      CPF: cpf,
-      EMAIL: email,
-      TELEFONES: telefones,
-      NATURALIDADE: naturalidade,
-      TURNO: turno,
-      PERIODO: periodo,
-      CURSO: curso,
-      NASCIMENTO: nascimento,
-      TURMA: turma,
-      SITUACAO_PERIODO: situacao_periodo,
-      NOME: nome,
-      MATRICULA: matricula,
-      CIDADE: cidade,
-      BAIRRO: bairro,
-      COMPLEMENTO: complemento,
-      NUMERO: numero,
-      ENDERECO: endereco,
-      NOME_DA_MAE: nome_da_mae,
-      NOME_DO_PAI: nome_do_pai,
-      ESTADO_IDENT: estado_ident,
-    })
+      name,
+      cpf,
+      phone,
+      email,
+      code,
+    });
+
+    await ClassModel.findOneAndUpdate({ _id: id }, {
+      $push: {
+        students: student._id
+      }
+    }, { new: true });
 
     return res.status(200).json(student);
   }

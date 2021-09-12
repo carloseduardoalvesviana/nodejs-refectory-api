@@ -1,5 +1,60 @@
-professores
-admin
-message-notification
-upload => completed, front => no
-alunos => completed, front => no
+##Cadastro de 'classes'
+routes.post('/class',
+routes.get('/class',
+
+ex:
+{
+	"shift" : "matutino",
+	"course": "id_course",
+	"year": "2021"
+}
+
+-----------------------------------
+
+##Cadastro de 'Courses'
+body=name
+method=post /courses, store course
+
+ex:
+{
+  "name": "sistemas de informação"
+}
+
+-----------------------------------
+
+##Cadastro de 'Students'
+
+routes.get('/students',
+routes.post('/students',
+routes.put('/students/:id',
+routes.get('/students/:id',
+routes.delete('/students/:id',
+
+routes.get('/class',
+
+ex:
+{
+	"name" : "joao",
+	"email": "joao@gmail.com",
+	"phone": "86995588774",
+	"cpf": "555.888.55-88",
+	"code": "85859565554",
+	"id": "id_class"
+}
+
+-----------------------------------
+##Cadastro de professores
+
+post('/teachers',
+get('/teachers',
+put('/teachers/:id',
+delete('/teachers/:id',
+get('/teachers/:id',
+
+ex:
+{
+  "name" : "joao",
+	"email": "joao@gmail.com",
+	"phone": "86995588774",
+	"cpf": "555.888.55-88",
+}

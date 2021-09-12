@@ -14,7 +14,15 @@ const ReserveController = require('./controllers/ReserveController');
 const SessionController = require('./controllers/SessionController');
 const MessageController = require('./controllers/MessageController');
 const TeacherController = require('./controllers/TeacherController');
-const ListAllController = require('./controllers/ListAllController');
+const CourseController = require('./controllers/CourseController');
+const ClassController = require('./controllers/ClassController');
+
+// Class
+routes.post('/class', ClassController.store);
+routes.get('/class', ClassController.index);
+
+// Course
+routes.post('/courses', CourseController.store);
 
 // Entry point API
 routes.get('/', (req, res) => res.json({ message: 'Welcome to IFPI API' }));
@@ -67,6 +75,5 @@ routes.post('/reserves/find/:id', ReserveController.find);
 routes.get('/reserves', ReserveController.index);
 
 // listen
-routes.get('/list/all', ListAllController.index);
 
 module.exports = routes;
