@@ -23,6 +23,7 @@ routes.get('/class', ClassController.index);
 
 // Course
 routes.post('/courses', CourseController.store);
+routes.get('/courses', CourseController.get);
 
 // Entry point API
 routes.get('/', (req, res) => res.json({ message: 'Welcome to IFPI API' }));
