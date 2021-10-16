@@ -3,7 +3,7 @@ const Student = require('../models/Student');
 class SessionController {
   async store(req, res) {
     const { code } = req.body;
-    const response = await Student.findOne({ MATRICULA: code });
+    const response = await Student.findOne({ code: code });
     return res.json(response);
   }
 }
