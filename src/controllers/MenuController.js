@@ -16,7 +16,7 @@ class MenuController {
   async findMenuOfDay(req, res) {
     const dataAtual = new Date();
     const diaAtual = dataAtual.getDate();
-    let mesAtual = '0';
+    let mesAtual = 0;
     mesAtual += dataAtual.getMonth() + 1;
     const anoAtual = getYear(dataAtual);
 
