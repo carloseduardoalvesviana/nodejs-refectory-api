@@ -38,18 +38,32 @@ class TeacherController {
   async store(req, res) {
     const {
       name,
-      cpf,
-      phone,
       email,
-      code,
+      password,
+      cpf,
+      rg,
+      phone,
+      state,
+      city,
+      address,
+      number,
+      birth_date,
+      cep,
     } = req.body;
 
     const teacher = await Teacher.create({
       name,
-      cpf,
-      phone,
       email,
-      code,
+      password,
+      cpf,
+      rg,
+      phone,
+      state,
+      city,
+      address,
+      number,
+      birth_date,
+      cep,
     })
 
     return res.status(200).json(teacher)

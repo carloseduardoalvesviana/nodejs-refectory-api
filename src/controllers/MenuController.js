@@ -1,5 +1,5 @@
 const MenuModel = require('../models/Menu');
-var { getDate,getMonth, getYear } = require('date-fns');
+var { getYear } = require('date-fns');
 
 class MenuController {
   async index(req, res) {
@@ -27,18 +27,6 @@ class MenuController {
     const response = await MenuModel.findOne({ date: Data });
     
     return res.status(200).json(response);
-    
-    // response.map(menu => {
-    //   const dayMenuExists = menu.date.split('/')[0];
-    //   const mounthMenuExists = menu.date.split('/')[1];
-    //   const yearMenuExists = menu.date.split('/')[2];
-
-    //   console.log(dayMenuExists,mounthMenuExists,yearMenuExists );
-
-    //   if(dayMenuExists == diaAtual && mounthMenuExists == mesAtual && yearMenuExists == anoAtual) {
-    //     return res.json(menu);
-    //   }
-    // })
   }
 
   async store(req, res) {
@@ -51,27 +39,8 @@ class MenuController {
       return res.status(400).json({ message: 'menu ja existe' });
     }
 
-    // let dayMenu = date.split('/')[0];
-    // let mounthMenu =  date.split('/')[1];
-    // let yearMenu = date.split('/')[2];
-
-    // const result = await MenuModel.find();
-
-    // result.map(menu => {
-    //   const dayMenuExists = menu.date.split('/')[0];
-    //   const mounthMenuExists = menu.date.split('/')[1];
-    //   const yearMenuExists = menu.date.split('/')[2];
-
-    //   if(dayMenu == dayMenuExists && mounthMenu == mounthMenuExists && yearMenu == yearMenuExists) {
-    //     return res.status(500).json({
-    //       message: 'Já existe um menu nesse dia'
-    //     });
-    //   }
-    // })
-
     const response = await MenuModel.create(req.body);
     return res.json(response);
-
   }
 
   async update(req, res) {
