@@ -6,6 +6,16 @@ const TeacherSchema = new Schema({
   cpf: String,
   phone: String,
   email: String,
+  password: String,
+  cpf: String,
+  rg: String,
+  phone: String,
+  state: String,
+  city: String,
+  address: String,
+  number: String,
+  birth_date: String,
+  cep: String,
   permission: {
     type: String,
     default: 'professor'
