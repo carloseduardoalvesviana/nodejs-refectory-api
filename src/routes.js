@@ -26,7 +26,7 @@ routes.post('/courses', CourseController.store);
 routes.get('/courses', CourseController.get);
 
 // Entry point API
-routes.get('/', (req, res) => res.json({ message: 'Welcome to IFPI API' }));
+routes.get('/', (req, res) => res.json({ message: 'Welcome to api' }));
 
 // Login
 routes.post('/login', SessionController.store);
