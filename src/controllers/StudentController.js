@@ -71,7 +71,7 @@ class StudentController {
       phone,
       email,
       code,
-      id,
+      id_class,
     } = req.body;
 
     let student = await Student.create({
@@ -80,13 +80,8 @@ class StudentController {
       phone,
       email,
       code,
+      id_class
     });
-
-    await ClassModel.findOneAndUpdate({ _id: id }, {
-      $push: {
-        students: student._id
-      }
-    }, { new: true });
 
     return res.status(200).json(student);
   }
