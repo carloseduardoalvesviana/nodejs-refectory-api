@@ -12,7 +12,7 @@ class ClassController {
   async store(req, res) {
     const { shift, course, year } = req.body;
 
-    const course_ = await CourseSchema.findOne({ id: course });
+    const course_ = await CourseSchema.findOne({ _id: course });
 
     const class_ = await ClassSchema.create({
       shift: shift,
