@@ -7,6 +7,10 @@ const StudentSchema = new Schema({
   phone: String,
   email: String,
   code: String,
+  id_class: {
+    type: Schema.ObjectId,
+    ref: 'Class'
+  },
   permission: {
     type: String,
     default: 'não'
