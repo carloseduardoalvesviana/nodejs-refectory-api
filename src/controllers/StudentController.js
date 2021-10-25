@@ -4,7 +4,12 @@ const ReserveModel = require('../models/Reserve');
 class StudentController {
   async index(req, res) {
     try {
-      const response = await Student.find().populate('id_class').exec();
+      const response = await Student.find().populate({
+        path: 'id_class',
+        populate: {
+          path: 'course'
+        }
+      }).exec();
       return res.json(response);
     } catch (error) {
       return res.status(500).json(error);
