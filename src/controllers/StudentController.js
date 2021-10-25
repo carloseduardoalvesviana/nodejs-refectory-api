@@ -1,11 +1,15 @@
 const Student = require('../models/Student');
 const ReserveModel = require('../models/Reserve');
-const ClassModel = require('../models/Class');
 
 class StudentController {
   async index(req, res) {
-    const response = await Student.find();
-    return res.json(response);
+    try {
+      const response = await Student.find().populate('id_class').exec();
+      return res.json(response);
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+
   }
 
   async findNotConfirm(req, res) {
