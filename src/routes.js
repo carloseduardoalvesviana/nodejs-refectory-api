@@ -17,7 +17,7 @@ const TeacherController = require('./controllers/TeacherController');
 const CourseController = require('./controllers/CourseController');
 const ClassController = require('./controllers/ClassController');
 
-// Class
+// Class - turmas
 routes.post('/class', ClassController.store);
 routes.get('/class', ClassController.index);
 

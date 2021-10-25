@@ -8,12 +8,6 @@ const ClassSchema = new Schema({
     ref: 'Course'
   },
   year: String,
-  students: [
-    {
-      type: Schema.ObjectId,
-      ref: 'Student'
-    },
-  ]
 });
 
 module.exports = mongoose.model('Class', ClassSchema);
