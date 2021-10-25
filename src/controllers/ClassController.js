@@ -16,7 +16,7 @@ class ClassController {
 
     const class_ = await ClassSchema.create({
       shift: shift,
-      course: course_.id,
+      course: course_._id,
       year: year,
     });
 
