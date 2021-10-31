@@ -20,7 +20,7 @@ const ClassController = require('./controllers/ClassController');
 // Class - turmas
 routes.post('/class', ClassController.store);
 routes.get('/class', ClassController.index);
-routes.delete('/class', ClassController.delete);
+routes.delete('/class/:id', ClassController.delete);
 
 // Course
 routes.post('/courses', CourseController.store);
