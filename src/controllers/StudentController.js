@@ -14,7 +14,6 @@ class StudentController {
     } catch (error) {
       return res.status(500).json(error);
     }
-
   }
 
   async findNotConfirm(req, res) {
@@ -49,7 +48,6 @@ class StudentController {
       cpf,
       phone,
       email,
-      code,
     } = req.body;
 
     const student = await Student.findOneAndUpdate({ _id: id }, {
@@ -57,7 +55,6 @@ class StudentController {
       cpf,
       phone,
       email,
-      code,
     }, { new: true });
 
     return res.status(200).json(student);
