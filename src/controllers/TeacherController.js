@@ -21,6 +21,9 @@ class TeacherController {
       phone,
       email,
       code,
+      city,
+      state,
+      rg
     } = req.body;
 
     const teacher = await Teacher.findOneAndUpdate({ _id: id },
@@ -30,6 +33,9 @@ class TeacherController {
         phone,
         email,
         code,
+        city,
+        state,
+        rg
       }, { new: true });
 
     return res.status(200).json(teacher);
