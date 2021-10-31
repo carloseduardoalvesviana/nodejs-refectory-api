@@ -24,6 +24,7 @@ routes.get('/class', ClassController.index);
 // Course
 routes.post('/courses', CourseController.store);
 routes.get('/courses', CourseController.get);
+routes.delete('/courses/:id', CourseController.delete);
 
 // Entry point API
 routes.get('/', (req, res) => res.json({ message: 'Welcome to api' }));

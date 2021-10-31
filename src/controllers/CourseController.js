@@ -13,6 +13,12 @@ class CourseController {
     })
     return res.json(course);
   }
+
+  async delete(req, res) {
+    const { id } = req.params;
+    const r = await CourseSchema.findOneAndDelete({ _id: id });
+    return res.json(r);
+  }
 }
 
 module.exports = new CourseController();
