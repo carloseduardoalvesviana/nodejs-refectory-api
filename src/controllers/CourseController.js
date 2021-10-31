@@ -19,6 +19,13 @@ class CourseController {
     const r = await CourseSchema.findOneAndDelete({ _id: id });
     return res.json(r);
   }
+
+  async update(req, res) {
+    const { id } = req.params;
+    const { name } = req.body;
+    const r = await CourseSchema.findOneAndUpdate({ _id: id }, { name: name }, { new: true });
+    return res.json(r);
+  }
 }
 
 module.exports = new CourseController();
