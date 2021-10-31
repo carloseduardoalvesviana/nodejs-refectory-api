@@ -6,6 +6,12 @@ class CourseController {
     return res.json(courses);
   }
 
+  async findOne(req, res) {
+    const id = req.params.id;
+    const course = await CourseSchema.findOne({ _id: id });
+    return res.status(200).json(course);
+  }
+
   async store(req, res) {
     const { name } = req.body;
     const course = await CourseSchema.create({
