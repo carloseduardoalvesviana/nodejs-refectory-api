@@ -21,6 +21,7 @@ const ClassController = require('./controllers/ClassController');
 routes.post('/class', ClassController.store);
 routes.get('/class', ClassController.index);
 routes.delete('/class/:id', ClassController.delete);
+routes.get('/class/:id', ClassController.findOne);
 
 // Course
 routes.post('/courses', CourseController.store);

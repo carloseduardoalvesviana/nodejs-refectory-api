@@ -13,6 +13,12 @@ class ClassController {
     return res.json(r);
   }
 
+  async findOne(req, res) {
+    const id = req.params.id;
+    const classes = await ClassSchema.findOne({ _id: id });
+    return res.status(200).json(classes);
+  }
+
   async store(req, res) {
     const { shift, course, year } = req.body;
     const course_ = await CourseSchema.findOne({ _id: course });
