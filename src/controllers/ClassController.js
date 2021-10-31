@@ -13,6 +13,15 @@ class ClassController {
     return res.json(r);
   }
 
+  async update(req, res) {
+    const { id } = req.params;
+    const { shift, year } = req.body;
+    const r = await ClassSchema.findOneAndUpdate({ _id: id }, {
+      shift, year
+    });
+    return res.json(r);
+  }
+
   async findOne(req, res) {
     const id = req.params.id;
     const classes = await ClassSchema.findOne({ _id: id });

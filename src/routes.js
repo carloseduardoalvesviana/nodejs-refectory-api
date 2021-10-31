@@ -22,6 +22,7 @@ routes.post('/class', ClassController.store);
 routes.get('/class', ClassController.index);
 routes.delete('/class/:id', ClassController.delete);
 routes.get('/class/:id', ClassController.findOne);
+routes.put('/class/:id', ClassController.update);
 
 // Course
 routes.post('/courses', CourseController.store);
