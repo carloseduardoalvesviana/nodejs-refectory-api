@@ -6,6 +6,16 @@ class TeacherController {
     return res.status(200).json(teachers);
   }
 
+  async login(req, res) {
+    const { email, password } = req.body;
+    const response = await Teacher.findOne({ email: email }).findOne({password: password});
+    if (response) {
+      return res.status(200).json(response);
+    }
+    
+    return res.status(404).send('Usuário e/ou senha incorreto(s)');
+  }
+
   async findOne(req, res) {
     const id = req.params.id;
     const teacher = await Teacher.findOne({ _id: id });

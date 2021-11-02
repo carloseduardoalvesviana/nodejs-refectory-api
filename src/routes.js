@@ -36,7 +36,7 @@ routes.get('/', (req, res) => res.json({ message: 'Welcome to api' }));
 
 // Login
 routes.post('/login', SessionController.store);
-// routes.post('/teacher/login', TeacherController.login);
+routes.post('/teacher/login', TeacherController.login);
 routes.get('/students/found', StudentController.findNotConfirm);
 
 // Message
