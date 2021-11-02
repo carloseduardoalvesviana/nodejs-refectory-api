@@ -16,6 +16,8 @@ const MessageController = require('./controllers/MessageController');
 const TeacherController = require('./controllers/TeacherController');
 const CourseController = require('./controllers/CourseController');
 const ClassController = require('./controllers/ClassController');
+const AdminController = require('./controllers/AdminController');
+const ClassManagementController = require('./controllers/ClassManagementController');
 
 // Class - turmas
 routes.post('/class', ClassController.store);
@@ -23,6 +25,15 @@ routes.get('/class', ClassController.index);
 routes.delete('/class/:id', ClassController.delete);
 routes.get('/class/:id', ClassController.findOne);
 routes.put('/class/:id', ClassController.update);
+
+// Class - turmas
+routes.post('/classManagement', ClassManagementController.store);
+routes.get('/classManagement/create', ClassManagementController.create);
+routes.get('/classManagement', ClassManagementController.index);
+routes.get('/classManagements/:teacher_id', ClassManagementController.classManagements);
+// routes.delete('/class/:id', ClassManagementController.delete);
+// routes.get('/class/:id', ClassManagementController.findOne);
+// routes.put('/class/:id', ClassManagementController.update);
 
 // Course
 routes.post('/courses', CourseController.store);
@@ -36,7 +47,8 @@ routes.get('/', (req, res) => res.json({ message: 'Welcome to api' }));
 
 // Login
 routes.post('/login', SessionController.store);
-routes.post('/teacher/login', TeacherController.login);
+routes.post('/auth/professor', TeacherController.auth);
+routes.post('/auth/admin', AdminController.auth);
 routes.get('/students/found', StudentController.findNotConfirm);
 
 // Message
@@ -71,6 +83,13 @@ routes.get('/teachers', TeacherController.index);
 routes.put('/teachers/:id', TeacherController.update);
 routes.delete('/teachers/:id', TeacherController.delete);
 routes.get('/teachers/:id', TeacherController.findOne);
+
+// Admins
+routes.post('/admin/store', AdminController.store);
+routes.get('/admins/index', AdminController.index);
+routes.put('/admin/update/:id', AdminController.update);
+routes.delete('/admin/delete/:id', AdminController.delete);
+routes.get('/admin/find/:id', AdminController.findOne);
 
 // Import Student
 routes.post('/csv/import', upload.single('csv'), CsvController.read);

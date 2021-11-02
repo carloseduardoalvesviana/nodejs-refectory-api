@@ -6,7 +6,7 @@ class SessionController {
     const response = await Student.findOne({ code: code });
     return res.json(response);
   }
-  
+
 }
 
 module.exports = new SessionController();
