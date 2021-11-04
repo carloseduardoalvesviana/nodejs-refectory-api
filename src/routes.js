@@ -18,6 +18,7 @@ const CourseController = require('./controllers/CourseController');
 const ClassController = require('./controllers/ClassController');
 const AdminController = require('./controllers/AdminController');
 const ClassManagementController = require('./controllers/ClassManagementController');
+const ClassReservation = require('./controllers/ClassReservation');
 
 // Class - turmas
 routes.post('/class', ClassController.store);
@@ -25,6 +26,9 @@ routes.get('/class', ClassController.index);
 routes.delete('/class/:id', ClassController.delete);
 routes.get('/class/:id', ClassController.findOne);
 routes.put('/class/:id', ClassController.update);
+
+// Class - agendamento
+routes.post('/class/reservation', ClassReservation.reservation);
 
 // Class - turmas
 routes.post('/classManagement', ClassManagementController.store);
