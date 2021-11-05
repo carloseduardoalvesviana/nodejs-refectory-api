@@ -1,6 +1,6 @@
-const ClassManagement = require('../models/ClassManagement');
+const ClassManagement = require('../models/ClassReservation');
 
-class ClassController {
+class ClassReservationController {
   async index(req, res) {
     const reservations = await ClassManagement.find().populate('class_id').populate('teacher_id').exec();
     return res.status(200).json(reservations);
@@ -19,4 +19,4 @@ class ClassController {
   }
 }
 
-module.exports = new ClassController();
+module.exports = new ClassReservationController();
