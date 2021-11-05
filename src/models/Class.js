@@ -8,6 +8,8 @@ const ClassSchema = new Schema({
     ref: 'Course'
   },
   year: String,
+}, {
+  timestamps: true
 });
 
 module.exports = mongoose.model('Class', ClassSchema);

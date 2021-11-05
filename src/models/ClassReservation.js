@@ -11,11 +11,13 @@ const ClassReservationSchema = new Schema({
     ref: 'Teacher'
   },
   approved: {
-    type: Boolean,
-    default: false,
+    type: String,
+    default: 'não',
   },
   reason: String,
   data: String,
+}, {
+  timestamps: true
 });
 
 module.exports = mongoose.model('ClassReservation', ClassReservationSchema);
