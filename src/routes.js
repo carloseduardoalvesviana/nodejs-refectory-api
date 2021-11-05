@@ -29,6 +29,7 @@ routes.put('/class/:id', ClassController.update);
 
 // Class - agendamento
 routes.post('/class/reservation', ClassReservation.reservation);
+routes.get('/class/reservations', ClassReservation.index);
 
 // Class - turmas
 routes.post('/classManagement', ClassManagementController.store);

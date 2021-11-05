@@ -10,7 +10,12 @@ const ClassManagementSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Teacher'
   },
-  date: String
+  approved: {
+    type: Boolean,
+    default: false,
+  },
+  reason: String,
+  data: String,
 });
 
 module.exports = mongoose.model('ClassManagement', ClassManagementSchema);
