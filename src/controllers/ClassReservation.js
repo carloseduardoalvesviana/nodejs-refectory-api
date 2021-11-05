@@ -2,8 +2,8 @@ const ClassManagement = require('../models/ClassManagement');
 
 class ClassController {
   async index(req, res) {
-    const response = await ClassManagement.find().populate('teacher_id').populate('class_id').exec();
-    return res.status(200).json(response);
+    const reservations = await ClassManagement.find().populate('class_id').populate('teacher_id').exec();
+    return res.status(200).json(reservations);
   }
 
   async reservation(req, res) {
