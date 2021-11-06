@@ -9,6 +9,8 @@ const AbsenseSchema = new Schema({
   shift: String,
   year: String,
   reason: String,
+}, {
+  timestamps: true
 });
 
 module.exports = mongoose.model('Absense', AbsenseSchema);

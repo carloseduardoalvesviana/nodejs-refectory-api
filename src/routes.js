@@ -17,7 +17,11 @@ const TeacherController = require('./controllers/TeacherController');
 const CourseController = require('./controllers/CourseController');
 const ClassController = require('./controllers/ClassController');
 const AdminController = require('./controllers/AdminController');
-const ClassManagementController = require('./controllers/ClassManagementController');
+// const ClassManagementController = require('./controllers/ClassManagementController');
+const ClassReservation = require('./controllers/ClassReservation');
+
+// Entry point API
+routes.get('/', (req, res) => res.json({ message: 'Welcome to api' }));
 
 // Class - turmas
 routes.post('/class', ClassController.store);
@@ -26,11 +30,18 @@ routes.delete('/class/:id', ClassController.delete);
 routes.get('/class/:id', ClassController.findOne);
 routes.put('/class/:id', ClassController.update);
 
+// Class - agendamento
+routes.post('/class/reservation', ClassReservation.reservation);
+routes.get('/reservations', ClassReservation.index);
+routes.put('/reservations/:id', ClassReservation.update)
+routes.get('/reservations/:id', ClassReservation.getReservastionByTeacherId);
+routes.delete('/reservations/:id', ClassReservation.delete);
+
 // Class - turmas
-routes.post('/classManagement', ClassManagementController.store);
-routes.get('/classManagement/create', ClassManagementController.create);
-routes.get('/classManagement', ClassManagementController.index);
-routes.get('/classManagements/:teacher_id', ClassManagementController.classManagements);
+// routes.post('/classManagement', ClassManagementController.store);
+// routes.get('/classManagement/create', ClassManagementController.create);
+// routes.get('/classManagement', ClassManagementController.index);
+// routes.get('/classManagements/:teacher_id', ClassManagementController.classManagements);
 // routes.delete('/class/:id', ClassManagementController.delete);
 // routes.get('/class/:id', ClassManagementController.findOne);
 // routes.put('/class/:id', ClassManagementController.update);
@@ -42,8 +53,6 @@ routes.delete('/courses/:id', CourseController.delete);
 routes.put('/courses/:id', CourseController.update);
 routes.get('/courses/:id', CourseController.findOne);
 
-// Entry point API
-routes.get('/', (req, res) => res.json({ message: 'Welcome to api' }));
 
 // Login
 routes.post('/login', SessionController.store);
