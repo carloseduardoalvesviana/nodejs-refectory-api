@@ -8,7 +8,7 @@ class AdminController {
     
   async auth(req, res) {
     const { email, password } = req.body;
-    const response = await Admin.findOne({ email: email }).findOne({password: password});
+    const response = await Admin.findOne({ email: email, password: password });
     if (response) {
       return res.status(200).json(response);
     }

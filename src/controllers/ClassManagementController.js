@@ -42,7 +42,8 @@ class ClassManagementController {
         .distinct("class_id");
       
     const classes = await ClassSchema.find().populate('course').where('_id').in(classesId).exec();
-    console.log(classes);
+    
+    return res.status(200).json(classes);
   
   }
 }
