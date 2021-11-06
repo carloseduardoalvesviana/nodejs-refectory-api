@@ -34,6 +34,8 @@ routes.put('/class/:id', ClassController.update);
 routes.post('/class/reservation', ClassReservation.reservation);
 routes.get('/reservations', ClassReservation.index);
 routes.put('/reservations/:id', ClassReservation.update)
+routes.get('/reservations/:id', ClassReservation.getReservastionByTeacherId);
+routes.delete('/reservations/:id', ClassReservation.delete);
 
 // Class - turmas
 // routes.post('/classManagement', ClassManagementController.store);
