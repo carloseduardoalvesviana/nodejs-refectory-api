@@ -2,6 +2,13 @@ const Student = require('../models/Student');
 const ReserveModel = require('../models/Reserve');
 
 class StudentController {
+  async findStudentByClass(req, res) {
+    const { id } = req.params;
+    console.log(id);
+    const students = await Student.find({ id_class: id });
+    return res.status(200).json(students);
+  }
+
   async index(req, res) {
     try {
       const response = await Student.find().populate({

@@ -8,8 +8,30 @@ class ClassReservationController {
     return res.status(200).json({ message: 'atualizado com sucesso!' });
   }
 
+  async addStudents(req, res) {
+    const { id_reservation } = req.params;
+    const { id_student } = req.body;
+
+    console.log(id_student);
+    
+    await ClassReservation.findOneAndUpdate({ _id: id_reservation }, 
+      {
+        $push: {
+          students: id_student
+        }
+      }
+    );
+  }
+
+  async disapprove(req, res) {
+    const { id } = req.params;
+    await ClassReservation.findOneAndUpdate({ _id: id }, { approved: 'não' }, { new: true });
+    return res.status(200).json({ message: 'reserva desaprovada' });
+  }
+
   async getReservastionByTeacherId(req, res) {
     const { id } = req.params;
+    console.log(id);
     const reservationsTeacher = await ClassReservation.find({
       teacher_id: id
     }).populate({
@@ -19,6 +41,7 @@ class ClassReservationController {
       }
     })
       .populate('teacher_id')
+      .populate('students')
       .exec();
     return res.status(200).json(reservationsTeacher);
   }
@@ -42,6 +65,7 @@ class ClassReservationController {
         }
       })
       .populate('teacher_id')
+      .populate('students')
       .exec();
     return res.status(200).json(reservations);
   }
@@ -58,7 +82,7 @@ class ClassReservationController {
 
   async reservation(req, res) {
     try {
-      const { teacher_id, class_id, data, studentsNot } = req.body;
+      const { teacher_id, class_id, data = '' } = req.body;
       await ClassReservation.create({
         teacher_id, class_id, data, studentsNot
       });
