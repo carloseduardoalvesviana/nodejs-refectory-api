@@ -31,11 +31,15 @@ routes.get('/class/:id', ClassController.findOne);
 routes.put('/class/:id', ClassController.update);
 
 // Class - agendamento
+routes.put('/reservations/disapprove/:id', ClassReservation.disapprove);
 routes.post('/class/reservation', ClassReservation.reservation);
 routes.get('/reservations', ClassReservation.index);
 routes.put('/reservations/:id', ClassReservation.update)
 routes.get('/reservations/:id', ClassReservation.getReservastionByTeacherId);
 routes.delete('/reservations/:id', ClassReservation.delete);
+
+// adiconar alunos
+routes.put('/reservations/class/students/:id_reservation', ClassReservation.addStudents);
 
 // Class - turmas
 // routes.post('/classManagement', ClassManagementController.store);
@@ -85,6 +89,7 @@ routes.post('/students', StudentController.store);
 routes.put('/students/:id', StudentController.update);
 routes.get('/students/:id', StudentController.findOne);
 routes.delete('/students/:id', StudentController.delete);
+routes.get('/students/class/:id', StudentController.findStudentByClass);
 
 // Teachers
 routes.post('/teachers', TeacherController.store);

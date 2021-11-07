@@ -6,6 +6,13 @@ const ClassReservationSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Class'
   },
+  students: [
+    {
+      type: Schema.ObjectId,
+      ref: 'Student',
+      unique: true,
+    }
+  ],
   teacher_id: {
     type: Schema.ObjectId,
     ref: 'Teacher'
