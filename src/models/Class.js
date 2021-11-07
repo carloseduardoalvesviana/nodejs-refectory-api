@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const ClassSchema = new Schema({
   shift: String,
+  description: String,
   course: {
     type: Schema.ObjectId,
     ref: 'Course'

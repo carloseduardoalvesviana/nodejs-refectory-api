@@ -16,6 +16,11 @@ const ClassReservationSchema = new Schema({
   },
   reason: String,
   data: String,
+  quantidy: Number,
+  studentsNot: {
+    type: Array,
+    default: [],
+  }
 }, {
   timestamps: true
 });

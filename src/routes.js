@@ -26,6 +26,7 @@ routes.get('/', (req, res) => res.json({ message: 'Welcome to api' }));
 // Class - turmas
 routes.post('/class', ClassController.store);
 routes.get('/class', ClassController.index);
+routes.get('/students/class/:id_class', ClassController.getStudents);
 routes.delete('/class/:id', ClassController.delete);
 routes.get('/class/:id', ClassController.findOne);
 routes.put('/class/:id', ClassController.update);
@@ -35,6 +36,7 @@ routes.post('/class/reservation', ClassReservation.reservation);
 routes.get('/reservations', ClassReservation.index);
 routes.put('/reservations/:id', ClassReservation.update)
 routes.get('/reservations/:id', ClassReservation.getReservastionByTeacherId);
+routes.get('/reservationDetail/:id', ClassReservation.reservationDetail);
 routes.delete('/reservations/:id', ClassReservation.delete);
 
 // Class - turmas
