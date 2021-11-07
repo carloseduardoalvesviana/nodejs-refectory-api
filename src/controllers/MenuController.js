@@ -20,10 +20,10 @@ class MenuController {
     mesAtual += dataAtual.getMonth() + 1;
     const anoAtual = getYear(dataAtual);
 
-    const Data = diaAtual + "/" + mesAtual + "/"+anoAtual;
+    const Data = (diaAtual > 9 ? diaAtual : "0" + diaAtual) + "/" + mesAtual + "/"+anoAtual;
 
     console.log(Data);
-
+    
     const response = await MenuModel.findOne({ date: Data });
     
     return res.status(200).json(response);

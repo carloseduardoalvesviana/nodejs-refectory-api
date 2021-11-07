@@ -57,7 +57,7 @@ routes.get('/courses/:id', CourseController.findOne);
 
 
 // Login
-routes.post('/login', SessionController.store);
+routes.post('/login/student', SessionController.auth);
 routes.post('/auth/professor', TeacherController.auth);
 routes.post('/auth/admin', AdminController.auth);
 routes.get('/students/found', StudentController.findNotConfirm);
