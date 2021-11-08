@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const ClassReservationSchema = new Schema({
+const ClassReservationAdminSchema = new Schema({
   class_id: {
     type: Schema.ObjectId,
     ref: 'Class'
@@ -12,9 +12,9 @@ const ClassReservationSchema = new Schema({
       ref: 'Student',
     }
   ],
-  teacher_id: {
+  admin_id: {
     type: Schema.ObjectId,
-    ref: 'Teacher'
+    ref: 'Admin'
   },
   approved: {
     type: String,
@@ -26,4 +26,4 @@ const ClassReservationSchema = new Schema({
   timestamps: true
 });
 
-module.exports = mongoose.model('ClassReservation', ClassReservationSchema);
+module.exports = mongoose.model('ClassReservationAdmin', ClassReservationAdminSchema);

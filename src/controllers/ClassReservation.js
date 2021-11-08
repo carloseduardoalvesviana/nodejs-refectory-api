@@ -1,26 +1,58 @@
 const ClassReservation = require('../models/ClassReservation');
+const ClassReservationAdmin = require('../models/ClassReservationAdmin');
 
 class ClassReservationController {
+  async adminReservationStore(req, res) {
+    try {
+      const { admin_id, class_id, data } = req.body;
+      await ClassReservationAdmin.create({
+        admin_id, class_id, data
+      });
+      return res.status(201).json({ message: 'Agendamento marcado' });
+    } catch (error) {
+      return res.status(400).json({ message: 'Tivemos um problema!!' });
+    }
+  }
+
   async update(req, res) {
     const { id } = req.params;
     await ClassReservation.findOneAndUpdate({ _id: id }, { approved: 'sim' }, { new: true });
     return res.status(200).json({ message: 'atualizado com sucesso!' });
   }
 
-  async addStudents(req, res) {
-    const { id_reservation } = req.params;
+  async addStudentsAdmin(req, res) {
+    const { id } = req.params;
     const { id_student } = req.body;
 
     console.log(id_student);
     
-    await ClassReservation.findOneAndUpdate({ _id: id_reservation }, 
+    await ClassReservationAdmin.findOneAndUpdate({ _id: id }, 
       {
         $push: {
           students: id_student
         }
       }
     );
+    return res.status(200).json({ message: 'ok' })
   }
+
+  async addStudents(req, res) {
+    const { id } = req.params;
+    const { id_student } = req.body;
+
+    console.log(id_student);
+    
+    await ClassReservation.findOneAndUpdate({ _id: id }, 
+      {
+        $push: {
+          students: id_student
+        }
+      }
+    );
+    return res.status(200).json({message: 'ok'})
+  }
+
+ 
 
   async disapprove(req, res) {
     const { id } = req.params;
@@ -40,6 +72,23 @@ class ClassReservationController {
       }
     })
       .populate('teacher_id')
+      .populate('students')
+      .exec();
+    return res.status(200).json(reservationsTeacher);
+  }
+
+  async getReservastionByAdminId(req, res) {
+    const { id } = req.params;
+    console.log(id);
+    const reservationsTeacher = await ClassReservationAdmin.find({
+      admin_id: id
+    }).populate({
+      path: 'class_id',
+      populate: {
+        path: 'course'
+      }
+    })
+      .populate('admin_id')
       .populate('students')
       .exec();
     return res.status(200).json(reservationsTeacher);

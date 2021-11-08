@@ -3,6 +3,28 @@ const StudentModel = require('../models/Student');
 const MenuModel = require('../models/Menu');
 
 class ReserveController {
+  async delete(req, res) {
+    const { id } = req.params;
+    const reserve = await ReserveModel.findOneAndDelete({ _id: id });
+    return res.status(200).json(reserve);
+  }
+
+  async confirm(req, res) {
+    const { id } = req.params;
+    const reserve = await ReserveModel.findOneAndUpdate({ _id: id }, {
+      approved: 'sim'
+    });
+    return res.status(200).json(reserve);
+  }
+
+  async disapprove(req, res) {
+    const { id } = req.params;
+    const reserve = await ReserveModel.findOneAndUpdate({ _id: id }, {
+      approved: 'não'
+    });
+    return res.status(200).json(reserve);
+  }
+
   async cancel(req, res) {
     const id = req.params.id;
     const { reason_for_cancellation } = req.body;
@@ -33,7 +55,15 @@ class ReserveController {
     const reserves =
       await ReserveModel.find({})
         .populate('id_menu')
-        .populate('id_student')
+        .populate({
+          path: 'id_student',
+          populate: {
+            path: 'id_class',
+            populate: {
+              path: 'course'
+            }
+          }
+        })
         .exec();
 
     return res.json(reserves);
