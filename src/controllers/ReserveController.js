@@ -72,9 +72,6 @@ class ReserveController {
   async find(req, res) {
     const id_student = req.params.id;
     const id = req.body.id;
-
-    console.log(id_student, id);
-
     const reserve = await ReserveModel.findOne(
       {
         id_student: id_student, id_menu: id
@@ -87,7 +84,7 @@ class ReserveController {
   async store(req, res) {
     const { id } = req.params; // id menu
     const id_student = req.body.id; // id student
-
+    console.log(id_student);
     const student = await StudentModel.findOne({ _id: id_student });
     if (!student) {
       return res.json({ message: 'Estudante não encontrado(a)' });

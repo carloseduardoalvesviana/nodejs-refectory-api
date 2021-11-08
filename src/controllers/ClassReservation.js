@@ -1,5 +1,9 @@
 const ClassReservation = require('../models/ClassReservation');
+<<<<<<< HEAD
 const ClassReservationAdmin = require('../models/ClassReservationAdmin');
+=======
+const Student = require('../models/Student');
+>>>>>>> 3cbe41edcc464998231879a192dcb953f9b1be32
 
 class ClassReservationController {
   async adminReservationStore(req, res) {
@@ -77,6 +81,7 @@ class ClassReservationController {
     return res.status(200).json(reservationsTeacher);
   }
 
+<<<<<<< HEAD
   async getReservastionByAdminId(req, res) {
     const { id } = req.params;
     console.log(id);
@@ -92,6 +97,16 @@ class ClassReservationController {
       .populate('students')
       .exec();
     return res.status(200).json(reservationsTeacher);
+=======
+  async reservationDetail(req, res) {
+    const { id } = req.params;
+  
+    const idStudents = await ClassReservation.findOne({ _id: id }).distinct('studentsNot');
+
+    const studentsNot = await Student.find().where('_id').in(idStudents).exec();
+
+    res.status(200).json(studentsNot);
+>>>>>>> 3cbe41edcc464998231879a192dcb953f9b1be32
   }
 
   async index(req, res) {
@@ -122,7 +137,7 @@ class ClassReservationController {
     try {
       const { teacher_id, class_id, data = '' } = req.body;
       await ClassReservation.create({
-        teacher_id, class_id, data
+        teacher_id, class_id, data, studentsNot
       });
       return res.status(201).json({ message: 'Agendamento marcado' });
     } catch (error) {

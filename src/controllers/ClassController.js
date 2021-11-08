@@ -1,5 +1,6 @@
 const ClassSchema = require('../models/Class');
 const CourseSchema = require('../models/Course');
+const Student = require('../models/Student');
 
 class ClassController {
   async index(req, res) {
@@ -13,11 +14,28 @@ class ClassController {
     return res.json(r);
   }
 
+  async getStudents(req, res) {
+    const id_class = req.params.id_class;
+    
+    // const students = await Student.find({ id_class }).populate('id_class').populate('course').exec();
+    const students = await Student.find({ id_class }).populate({ 
+      path: 'id_class',
+      model: ClassSchema,
+      populate: {
+        path: 'course',
+        model: CourseSchema
+      }
+    });
+    
+    
+    return res.status(200).json(students);  
+  }
+
   async update(req, res) {
     const { id } = req.params;
-    const { shift, year } = req.body;
+    const { shift, year, description } = req.body;
     const r = await ClassSchema.findOneAndUpdate({ _id: id }, {
-      shift, year
+      shift, year, description
     });
     return res.json(r);
   }
@@ -29,12 +47,13 @@ class ClassController {
   }
 
   async store(req, res) {
-    const { shift, course, year } = req.body;
+    const { shift, course, year, description } = req.body;
     const course_ = await CourseSchema.findOne({ _id: course });
     const class_ = await ClassSchema.create({
       shift: shift,
       course: course_._id,
       year: year,
+      description: description,
     });
     return res.json(class_);
   }

@@ -1,10 +1,10 @@
 const Student = require('../models/Student');
 
 class SessionController {
-  async store(req, res) {
+  async auth(req, res) {
     const { code } = req.body;
     const response = await Student.findOne({ code: code });
-    return res.json(response);
+    return res.status(200).json(response);
   }
 
 }
