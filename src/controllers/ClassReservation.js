@@ -21,13 +21,19 @@ class ClassReservationController {
     return res.status(200).json({ message: 'atualizado com sucesso!' });
   }
 
+  async updateAdmin(req, res) {
+    const { id } = req.params;
+    await ClassReservationAdmin.findOneAndUpdate({ _id: id }, { approved: 'sim' }, { new: true });
+    return res.status(200).json({ message: 'atualizado com sucesso!' });
+  }
+
   async addStudentsAdmin(req, res) {
     const { id } = req.params;
     const { id_student } = req.body;
 
     console.log(id_student);
-    
-    await ClassReservationAdmin.findOneAndUpdate({ _id: id }, 
+
+    await ClassReservationAdmin.findOneAndUpdate({ _id: id },
       {
         $push: {
           students: id_student
@@ -42,8 +48,8 @@ class ClassReservationController {
     const { id_student } = req.body;
 
     console.log(id_student);
-    
-    await ClassReservation.findOneAndUpdate({ _id: id }, 
+
+    await ClassReservation.findOneAndUpdate({ _id: id },
       {
         $push: {
           students: id_student
@@ -53,11 +59,17 @@ class ClassReservationController {
     return res.status(200).json({message: 'ok'})
   }
 
- 
+
 
   async disapprove(req, res) {
     const { id } = req.params;
     await ClassReservation.findOneAndUpdate({ _id: id }, { approved: 'não' }, { new: true });
+    return res.status(200).json({ message: 'reserva desaprovada' });
+  }
+
+  async disapproveAdmin(req, res) {
+    const { id } = req.params;
+    await ClassReservationAdmin.findOneAndUpdate({ _id: id }, { approved: 'não' }, { new: true });
     return res.status(200).json({ message: 'reserva desaprovada' });
   }
 
@@ -94,10 +106,10 @@ class ClassReservationController {
       .exec();
     return res.status(200).json(reservationsTeacher);
   }
-  
+
   async reservationDetail(req, res) {
     const { id } = req.params;
-  
+
     const idStudents = await ClassReservation.findOne({ _id: id }).distinct('studentsNot');
 
     const studentsNot = await Student.find().where('_id').in(idStudents).exec();
@@ -122,7 +134,19 @@ class ClassReservationController {
   async delete(req, res) {
     try {
       const { id } = req.params;
+      console.log(id);
       await ClassReservation.findOneAndDelete({ _id: id });
+      return res.status(200).json({ message: 'deletado com sucesso' });
+    } catch (error) {
+      return res.status(201).json({ message: 'Tivemos um problema!!' });
+    }
+  }
+
+  async deleteAdmin(req, res) {
+    try {
+      const { id } = req.params;
+      console.log(id);
+      await ClassReservationAdmin.findOneAndDelete({ _id: id });
       return res.status(200).json({ message: 'deletado com sucesso' });
     } catch (error) {
       return res.status(201).json({ message: 'Tivemos um problema!!' });

@@ -39,19 +39,13 @@ routes.put('/reservations/:id', ClassReservation.update)
 routes.get('/reservations/:id', ClassReservation.getReservastionByTeacherId);
 routes.get('/reservationDetail/:id', ClassReservation.reservationDetail);
 routes.delete('/reservations/:id', ClassReservation.delete);
-
-
-// adiconar alunos
 routes.put('/reservations/class/students/:id', ClassReservation.addStudents);
 
-// Class - turmas
-// routes.post('/classManagement', ClassManagementController.store);
-// routes.get('/classManagement/create', ClassManagementController.create);
-// routes.get('/classManagement', ClassManagementController.index);
-// routes.get('/classManagements/:teacher_id', ClassManagementController.classManagements);
-// routes.delete('/class/:id', ClassManagementController.delete);
-// routes.get('/class/:id', ClassManagementController.findOne);
-// routes.put('/class/:id', ClassManagementController.update);
+// Class admin
+routes.post('/admin/class/reservation', ClassReservation.adminReservationStore);
+routes.get('/admin/reservations/:id', ClassReservation.getReservastionByAdminId);
+routes.put('/admin/reservations/class/:id', ClassReservation.addStudentsAdmin);
+routes.delete('/admin/reservations/class/:id', ClassReservation.deleteAdmin);
 
 // Course
 routes.post('/courses', CourseController.store);
@@ -88,19 +82,15 @@ routes.put('/students/permission/no/:id', PermissionController.updateNo);
 
 // Students
 routes.get('/students', StudentController.index);
-routes.post('/students', StudentController.store);
 routes.put('/students/:id', StudentController.update);
 routes.get('/students/:id', StudentController.findOne);
 routes.delete('/students/:id', StudentController.delete);
 routes.get('/students/class/:id', StudentController.findStudentByClass);
+routes.post('/students', StudentController.store);
 
 routes.put('/reservations/student/:id', ReserveController.confirm);
 routes.put('/reservations/student/disapprove/:id', ReserveController.disapprove);
 routes.delete('/reservations/student/:id', ReserveController.delete);
-
-routes.post('/admin/class/reservation', ClassReservation.adminReservationStore);
-routes.get('/admin/reservations/:id', ClassReservation.getReservastionByAdminId);
-routes.put('/admin/reservations/class/:id', ClassReservation.addStudentsAdmin);
 
 // Teachers
 routes.post('/teachers', TeacherController.store);
@@ -126,5 +116,4 @@ routes.post('/reserves/find/:id', ReserveController.find);
 routes.get('/reserves', ReserveController.index);
 
 // listen
-
 module.exports = routes;

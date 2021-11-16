@@ -84,7 +84,7 @@ class StudentController {
       phone,
       email,
       code,
-      id_class,
+      id,
     } = req.body;
 
     let student = await Student.create({
@@ -93,7 +93,7 @@ class StudentController {
       phone,
       email,
       code,
-      id_class
+      id_class: id
     });
 
     return res.status(200).json(student);
