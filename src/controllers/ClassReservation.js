@@ -155,9 +155,9 @@ class ClassReservationController {
 
   async reservation(req, res) {
     try {
-      const { teacher_id, class_id, data = '' } = req.body;
+      const { teacher_id, class_id, data } = req.body;
       await ClassReservation.create({
-        teacher_id, class_id, data, studentsNot
+        teacher_id, class_id, data
       });
       return res.status(201).json({ message: 'Agendamento marcado' });
     } catch (error) {

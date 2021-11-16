@@ -18,7 +18,7 @@ const ClassReservationAdminSchema = new Schema({
   },
   approved: {
     type: String,
-    default: 'não',
+    default: 'sim',
   },
   reason: String,
   data: String,
