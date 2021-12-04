@@ -18,13 +18,13 @@ const CourseController = require('./controllers/CourseController');
 const ClassController = require('./controllers/ClassController');
 const AdminController = require('./controllers/AdminController');
 const ClassReservation = require('./controllers/ClassReservation');
-const NotificationStudentLogin = require('./controllers/NotificationStudentLoginController');
+const NotificationStudentLoginController = require('./controllers/NotificationStudentLoginController');
 
 // Entry point API
 routes.get('/node', (req, res) => res.json({ message: 'Welcome to api' }));
 
-routes.post('/node/verificar_presenca', NotificationStudentLogin.create);
-routes.get('/node/verificar_presenca', NotificationStudentLogin.index);
+routes.post('/node/verificar_presenca', NotificationStudentLoginController.create);
+routes.get('/node/verificar_presenca', NotificationStudentLoginController.index);
 
 // Class - turmas
 routes.post('/node/class', ClassController.store);
