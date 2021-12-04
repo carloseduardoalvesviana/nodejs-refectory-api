@@ -5,6 +5,7 @@ const { storage } = require('./helpers/csv');
 const multer = require('multer');
 const upload = multer({ storage: storage });
 
+const NotificationStudentController = require('./controllers/NotificationStudentController');
 const MenuController = require('./controllers/MenuController');
 const PermissionController = require('./controllers/PermissionController');
 const QrcodeController = require('./controllers/QrcodeController');
@@ -18,13 +19,11 @@ const CourseController = require('./controllers/CourseController');
 const ClassController = require('./controllers/ClassController');
 const AdminController = require('./controllers/AdminController');
 const ClassReservation = require('./controllers/ClassReservation');
-const NotificationStudentLoginController = require('./controllers/NotificationStudentLoginController');
+
 
 // Entry point API
 routes.get('/node', (req, res) => res.json({ message: 'Welcome to api' }));
 
-routes.get('/node/verificar_presenca', NotificationStudentLoginController.index);
-routes.post('/node/verificar_presenca', NotificationStudentLoginController.store);
 
 // Class - turmas
 routes.post('/node/class', ClassController.store);
@@ -117,6 +116,9 @@ routes.post('/node/menu/reserve/:id', ReserveController.store);
 routes.put('/node/reserves/cancel/:id', ReserveController.cancel);
 routes.post('/node/reserves/find/:id', ReserveController.find);
 routes.get('/node/reserves', ReserveController.index);
+
+routes.get('/node/verificar_presenca', NotificationStudentController.index);
+routes.post('/node/verificar/presenca', NotificationStudentController.store);
 
 // listen
 module.exports = routes;
