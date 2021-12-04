@@ -2,8 +2,12 @@ const NotificationStudentLogin = require('../models/NotificationStudentLogin');
 
 class NotificationStudentLoginControllerController {
   async index(req, res) {
-    const notifications = await NotificationStudentLogin.find({});
-    return res.status(200).json(notifications);
+    try {
+      const notifications = await NotificationStudentLogin.find();
+      return res.status(200).json(notifications);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
   }
 
   async create(req, res) {
