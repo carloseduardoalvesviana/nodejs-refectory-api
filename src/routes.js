@@ -23,8 +23,8 @@ const NotificationStudentLoginController = require('./controllers/NotificationSt
 // Entry point API
 routes.get('/node', (req, res) => res.json({ message: 'Welcome to api' }));
 
-routes.post('/node/verificar_presenca', NotificationStudentLoginController.create);
 routes.get('/node/verificar_presenca', NotificationStudentLoginController.index);
+routes.post('/node/verificar_presenca', NotificationStudentLoginController.create);
 
 // Class - turmas
 routes.post('/node/class', ClassController.store);
