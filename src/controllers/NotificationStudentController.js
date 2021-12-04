@@ -4,7 +4,7 @@ class NotificationStudentController {
   async index(req, res) {
     try {
       const notifications = await NotificationStudent.find().populate('id_student').exec();
-      return res.status(200).json(notifications);
+      return res.status(200).json(notifications[notifications.length - 1]);
     } catch (error) {
       return res.status(400).json(error);
     }
