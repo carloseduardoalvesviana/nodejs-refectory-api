@@ -10,7 +10,7 @@ class NotificationStudentLoginController {
     }
   }
 
-  async create(req, res) {
+  async store(req, res) {
     try {
       const { id_student } = req.body;
 
@@ -24,7 +24,6 @@ class NotificationStudentLoginController {
     } catch (error) {
       return res.status(400).json(error);
     }
-
   }
 }
 
