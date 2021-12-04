@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const NotificationStudentLoginSchema = new Schema({
-  id_student: String,
+  id_student: {
+    type: Schema.ObjectId,
+    ref: 'Student'
+  },
   msg: {
     type: String,
     default: 'Sua presença foi confirmada!'
