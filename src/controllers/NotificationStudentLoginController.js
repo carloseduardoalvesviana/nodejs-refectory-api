@@ -11,15 +11,20 @@ class NotificationStudentLoginController {
   }
 
   async create(req, res) {
-    const { id_student } = req.body;
+    try {
+      const { id_student } = req.body;
 
-    console.log(id_student);
+      console.log(id_student);
 
-    const NotificationStudentLogin = await NotificationStudentLogin.create({
-      id_student: id_student
-    });
+      const NotificationStudentLogin = await NotificationStudentLogin.create({
+        id_student: id_student
+      });
 
-    return res.status(200).json(NotificationStudentLogin);
+      return res.status(200).json(NotificationStudentLogin);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
+
   }
 }
 
