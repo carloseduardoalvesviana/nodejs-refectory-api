@@ -1,6 +1,6 @@
 const NotificationStudentLogin = require('../models/NotificationStudentLogin');
 
-class NotificationStudentLoginControllerController {
+class NotificationStudentLoginController {
   async index(req, res) {
     try {
       const notifications = await NotificationStudentLogin.find().populate('id_student').exec();
@@ -23,4 +23,4 @@ class NotificationStudentLoginControllerController {
   }
 }
 
-module.exports = new NotificationStudentLoginControllerController();
+module.exports = new NotificationStudentLoginController();
