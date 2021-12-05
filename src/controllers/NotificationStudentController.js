@@ -8,8 +8,8 @@ class NotificationStudentController {
         .exec();
 
       const response = notifications[notifications.length - 1];
-      const objeto = { ...response._doc, index: notifications.length };
-      return res.status(200).json(objeto);
+      // const objeto = { ...response._doc, index: notifications.length };
+      return res.status(200).json(response);
     } catch (error) {
       return res.status(400).json(error);
     }
