@@ -1,5 +1,5 @@
-const MenuModel = require('../models/Menu');
-var { getYear } = require('date-fns');
+const MenuModel = require("../models/Menu");
+var { getYear } = require("date-fns");
 
 class MenuController {
   async index(req, res) {
@@ -20,23 +20,26 @@ class MenuController {
     mesAtual += dataAtual.getMonth() + 1;
     const anoAtual = getYear(dataAtual);
 
-    const Data = (diaAtual > 9 ? diaAtual : "0" + diaAtual) + "/" + mesAtual + "/"+anoAtual;
+    const Data =
+      (diaAtual > 9 ? diaAtual : "0" + diaAtual) +
+      "/" +
+      mesAtual +
+      "/" +
+      anoAtual;
 
     console.log(Data);
-    
+
     const response = await MenuModel.findOne({ date: Data });
-    
+
     return res.status(200).json(response);
   }
 
   async store(req, res) {
-    
     const { date } = req.body;
-
     const dateExists = await MenuModel.findOne({ date: date });
 
-    if(dateExists) {
-      return res.status(400).json({ message: 'menu ja existe' });
+    if (dateExists) {
+      return res.status(400).json({ message: "menu ja existe" });
     }
 
     const response = await MenuModel.create(req.body);
@@ -50,28 +53,35 @@ class MenuController {
       const title = req.body.title;
       const date = req.body.date;
       const type = req.body.type;
+      const hourReserve = req.body.hourReserve;
+      const hourConfirmReserve = req.body.hourConfirmReserve;
 
       let data = {
         description,
         title,
         date,
-        type
-      }
+        type,
+        hourReserve,
+        hourConfirmReserve,
+      };
 
       console.log(data);
 
-      const response = await MenuModel.findOneAndUpdate({ _id: id }, {
-        description: description,
-        title: title,
-        date: date,
-        type: type
-      }, { new: true });
+      const response = await MenuModel.findOneAndUpdate(
+        { _id: id },
+        {
+          description: description,
+          title: title,
+          date: date,
+          type: type,
+          hourReserve: hourReserve,
+          hourConfirmReserve: hourConfirmReserve,
+        },
+        { new: true }
+      );
 
       return res.json(response);
-    } catch (error) {
-
-    }
-
+    } catch (error) {}
   }
 
   async delete(req, res) {

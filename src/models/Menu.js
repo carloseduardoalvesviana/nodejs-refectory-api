@@ -1,17 +1,28 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const MenuSchema = new Schema({
-  title: String,
-  description: String,
-  date: String,
-  type: String,
-  deadline: {
+const MenuSchema = new Schema(
+  {
+    title: String,
+    description: String,
+    date: String,
     type: String,
-    default: '10'
+    deadline: {
+      type: String,
+      default: "10",
+    },
+    hourReserve: {
+      type: String,
+      default: null,
+    },
+    hourConfirmReserve: {
+      type: String,
+      default: null,
+    },
+  },
+  {
+    timestamps: true,
   }
-}, {
-  timestamps: true
-});
+);
 
-module.exports = mongoose.model('Menu', MenuSchema);
+module.exports = mongoose.model("Menu", MenuSchema);
