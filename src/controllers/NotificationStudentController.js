@@ -7,9 +7,7 @@ class NotificationStudentController {
         .populate("id_student")
         .exec();
 
-      const response = notifications[notifications.length - 1];
-      const objeto = { ...response._doc, index: notifications.length };
-      return res.status(200).json(objeto);
+      return res.status(200).json(notifications[notifications.length - 1]);
     } catch (error) {
       return res.status(400).json(error);
     }
@@ -34,14 +32,14 @@ class NotificationStudentController {
   async store(req, res) {
     try {
       const { id_student } = req.body;
-
       const notifications = await NotificationStudent.find();
 
-      if (notifications) {
+      if (notifications.length > 0) {
         const notificationUpdate = await NotificationStudent.findOneAndUpdate(
           { _id: notifications[0]._id },
           {
             id_student,
+            ready: false,
           }
         );
         return res.status(200).json(notificationUpdate);
