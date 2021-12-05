@@ -6,11 +6,9 @@ class NotificationStudentController {
       const notifications = await NotificationStudent.find()
         .populate("id_student")
         .exec();
-      let response = {
-        ...notifications[notifications.length - 1],
-        index: notifications.length,
-      };
-      return res.status(200).json(response);
+      const response = notifications[notifications.length - 1];
+      const objeto = { ...response._doc, index: notifications.length };
+      return res.status(200).json(objeto);
     } catch (error) {
       return res.status(400).json(error);
     }
