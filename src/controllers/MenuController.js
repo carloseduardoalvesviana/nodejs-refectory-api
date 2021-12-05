@@ -29,7 +29,7 @@ class MenuController {
 
     console.log(Data);
 
-    const response = await MenuModel.findOne({ date: Data });
+    const response = await MenuModel.find({ date: Data });
 
     return res.status(200).json(response);
   }
