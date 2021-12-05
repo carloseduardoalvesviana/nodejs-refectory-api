@@ -33,14 +33,27 @@ class ClassReservationController {
 
     console.log(id_student);
 
-    await ClassReservationAdmin.findOneAndUpdate({ _id: id },
-      {
-        $push: {
-          students: id_student
+    const _class = await ClassReservationAdmin.findOne({
+      _id: id
+    });
+
+    const response = _class.students.filter(item => {
+      return item == id_student
+    })
+
+    if(response.length <= 0) {
+      await ClassReservationAdmin.findOneAndUpdate({ _id: id },
+        {
+          $push: {
+            students: id_student
+          }
         }
-      }
-    );
-    return res.status(200).json({ message: 'ok' })
+      );
+
+      return res.status(200).json({ message: 'ok' });
+    }
+
+    return res.status(200).json({ message: 'ja está incluido na reserva' });
   }
 
   async addStudents(req, res) {
@@ -49,13 +62,32 @@ class ClassReservationController {
 
     console.log(id_student);
 
-    await ClassReservation.findOneAndUpdate({ _id: id },
-      {
-        $push: {
-          students: id_student
-        }
+    const _class = ClassReservation.findOne({
+      _id: id
+    });
+
+    const response = _class.students.map(item => {
+      if(item === id_student) {
+        return true;
       }
-    );
+    })
+
+    console.log(response);
+
+    // const exists = _class.students.filter(item => item === id_student);
+
+    // if(exists) {
+    //   return res.status(200).json({message: 'aluno existe'})
+    // }
+
+    // await ClassReservation.findOneAndUpdate({ _id: id },
+    //   {
+    //     $push: {
+    //       students: id_student
+    //     }
+    //   }
+    // );
+
     return res.status(200).json({message: 'ok'})
   }
 
@@ -63,7 +95,6 @@ class ClassReservationController {
 
   async disapprove(req, res) {
     const { id } = req.params;
-    await ClassReservation.findOneAndUpdate({ _id: id }, { approved: 'não' }, { new: true });
     return res.status(200).json({ message: 'reserva desaprovada' });
   }
 
