@@ -17,6 +17,7 @@ class NotificationStudentController {
 
   async update(req, res) {
     const id_student = req.body.id_student;
+
     try {
       const notifications = await NotificationStudent.findOneAndUpdate(
         {
@@ -50,6 +51,7 @@ class NotificationStudentController {
       const NotificationStudents = await NotificationStudent.create({
         id_student,
       });
+
       return res.status(200).json(NotificationStudents);
     } catch (error) {
       return res.status(400).json(error);

@@ -39,7 +39,9 @@ class MenuController {
     const dateExists = await MenuModel.findOne({ date: date });
 
     if (dateExists) {
-      return res.status(400).json({ message: "menu ja existe" });
+      if(dateExists.type == req.body.type) {
+        return res.status(400).json({ message: "menu ja existe" });
+      }
     }
 
     const response = await MenuModel.create(req.body);
