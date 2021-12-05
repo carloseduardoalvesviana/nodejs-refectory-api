@@ -6,9 +6,26 @@ class NotificationStudentController {
       const notifications = await NotificationStudent.find()
         .populate("id_student")
         .exec();
+
       const response = notifications[notifications.length - 1];
       const objeto = { ...response._doc, index: notifications.length };
       return res.status(200).json(objeto);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
+  }
+
+  async update(req, res) {
+    const id_student = req.body.id_student;
+    try {
+      const notifications = await NotificationStudent.findOneAndUpdate(
+        {
+          id_student,
+        },
+        { ready: true }
+      );
+
+      return res.status(200).json(notifications);
     } catch (error) {
       return res.status(400).json(error);
     }
@@ -18,14 +35,21 @@ class NotificationStudentController {
     try {
       const { id_student } = req.body;
 
-      console.log(id_student);
+      const notifications = await NotificationStudent.find();
+
+      if (notifications) {
+        const notificationUpdate = await NotificationStudent.findOneAndUpdate(
+          { _id: notifications[0]._id },
+          {
+            id_student,
+          }
+        );
+        return res.status(200).json(notificationUpdate);
+      }
 
       const NotificationStudents = await NotificationStudent.create({
         id_student,
       });
-
-      console.log(NotificationStudents);
-
       return res.status(200).json(NotificationStudents);
     } catch (error) {
       return res.status(400).json(error);

@@ -23,6 +23,7 @@ const ClassReservation = require("./controllers/ClassReservation");
 // Entry point API
 routes.get("/node", (req, res) => res.json({ message: "Welcome to api" }));
 
+routes.put("/node/verificar/update", NotificationStudentController.update);
 routes.get("/node/verificar_presenca", NotificationStudentController.index);
 routes.post("/node/verificar/presenca", NotificationStudentController.store);
 
