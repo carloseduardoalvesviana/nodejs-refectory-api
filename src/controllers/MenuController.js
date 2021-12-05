@@ -1,5 +1,5 @@
 const MenuModel = require("../models/Menu");
-var { getYear } = require("date-fns");
+var { getYear, subHours } = require("date-fns");
 
 class MenuController {
   async index(req, res) {
@@ -27,14 +27,23 @@ class MenuController {
       "/" +
       anoAtual;
 
-    console.log(Data);
+    const hourReserveLoad = new Date();
+    var hours = hourReserveLoad.getHours();
 
-    const response = await MenuModel.find({ date: Data });
+    if(hours <= 13) {
+      const response = await MenuModel.findOne({ date: Data, type: '0' });
+      return res.status(200).json(response);
+    }
 
-    return res.status(200).json(response);
+    if(hours >= 14) {
+      const response = await MenuModel.findOne({ date: Data, type: '1' });
+      return res.status(200).json(response);
+    }
   }
 
   async store(req, res) {
+    // const hourReserveLoad = subHours(new Date(), 3);
+
     const { date } = req.body;
     const dateExists = await MenuModel.findOne({ date: date });
 
