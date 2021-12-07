@@ -141,6 +141,7 @@ routes.post("/node/reserves/find/:id", ReserveController.find);
 routes.get("/node/reserves", ReserveController.index);
 
 routes.get("/node/lacks", LackController.index);
+routes.get("/node/job_lacks", LackController.jobLack);
 
 // listen
 module.exports = routes;

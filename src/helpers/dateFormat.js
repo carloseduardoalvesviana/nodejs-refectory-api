@@ -13,3 +13,23 @@ exports.dateFormate = function (date, hour) {
 
   return validando;
 };
+
+exports.dateFormate = function (date, hour) {
+  const convertDate = parse(date, "dd/MM/yyyy", new Date());
+  const formaTed = format(convertDate, "yyyy-MM-dd");
+  const hourReserveLoad = subHours(new Date(), 3);
+
+  const iso = parseISO(`${formaTed} ${hour}`);
+  const znDate = subHours(zonedTimeToUtc(iso, "America/Sao_Paulo"), 3);
+
+  const validando = isAfter(znDate, hourReserveLoad);
+
+  return validando;
+};
+
+exports.date = function (date) {
+  const convertDate = parse(date, "dd/MM/yyyy", new Date());
+  const formaTed = format(convertDate, "yyyy-MM-dd");
+
+  return formaTed;
+};
