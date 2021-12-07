@@ -30,13 +30,13 @@ class MenuController {
     const hourReserveLoad = new Date();
     var hours = hourReserveLoad.getHours();
 
-    if(hours <= 13) {
-      const response = await MenuModel.findOne({ date: Data, type: '0' });
+    if (hours <= 13) {
+      const response = await MenuModel.findOne({ date: Data, type: "0" });
       return res.status(200).json(response);
     }
 
-    if(hours >= 14) {
-      const response = await MenuModel.findOne({ date: Data, type: '1' });
+    if (hours >= 14) {
+      const response = await MenuModel.findOne({ date: Data, type: "1" });
       return res.status(200).json(response);
     }
   }
@@ -48,7 +48,7 @@ class MenuController {
     const dateExists = await MenuModel.findOne({ date: date });
 
     if (dateExists) {
-      if(dateExists.type == req.body.type) {
+      if (dateExists.type == req.body.type) {
         return res.status(400).json({ message: "menu ja existe" });
       }
     }

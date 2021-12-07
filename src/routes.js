@@ -19,7 +19,7 @@ const CourseController = require("./controllers/CourseController");
 const ClassController = require("./controllers/ClassController");
 const AdminController = require("./controllers/AdminController");
 const ClassReservation = require("./controllers/ClassReservation");
-
+const LackController = require("./controllers/LackController");
 // Entry point API
 routes.get("/node", (req, res) => res.json({ message: "Welcome to api" }));
 
@@ -139,6 +139,8 @@ routes.post("/node/menu/reserve/:id", ReserveController.store);
 routes.put("/node/reserves/cancel/:id", ReserveController.cancel);
 routes.post("/node/reserves/find/:id", ReserveController.find);
 routes.get("/node/reserves", ReserveController.index);
+
+routes.get("/node/lacks", LackController.index);
 
 // listen
 module.exports = routes;
