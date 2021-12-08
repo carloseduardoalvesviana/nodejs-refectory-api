@@ -109,6 +109,8 @@ routes.get("/node/students/:id", StudentController.findOne);
 routes.delete("/node/students/:id", StudentController.delete);
 routes.get("/node/students/class/:id", StudentController.findStudentByClass);
 routes.post("/node/students", StudentController.store);
+routes.post("/node/unlock_student", StudentController.unlockStudent);
+routes.post("/node/lock_student", StudentController.lockStudent);
 
 routes.put("/node/reservations/student/:id", ReserveController.confirm);
 routes.put(

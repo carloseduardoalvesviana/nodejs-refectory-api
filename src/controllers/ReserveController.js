@@ -94,6 +94,12 @@ class ReserveController {
       return res.json({ message: "Estudante não encontrado(a)" });
     }
 
+    if (student.bloqued) {
+      return res.json({
+        message: "Estudante bloqueado(a), entre em contato com a nutricionista",
+      });
+    }
+
     const menu = await MenuModel.findOne({ _id: id });
     const validandoHorarioReserva = await dateFormate(
       menu.date,
