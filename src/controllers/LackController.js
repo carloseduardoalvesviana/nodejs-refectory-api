@@ -31,7 +31,7 @@ class LackController {
       reserveLacks.map(async (item) => {
         //verifica se existe o id da reserva a ser salva no model lack e não salva
         const reserve = await LackSchema.findOne({ id_reserve: item._id });
-        if (reserve) {
+        if (!reserve) {
           await LackSchema.create({
             id_student: item.id_student._id,
             id_reserve: item._id,
