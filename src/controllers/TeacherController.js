@@ -14,11 +14,11 @@ class TeacherController {
 
   async auth(req, res) {
     const { email, password } = req.body;
-    const response = await Teacher.findOne({ email: email }).findOne({password: password});
+    const response = await Teacher.findOne({ email: email }).findOne({ password: password });
     if (response) {
       return res.status(200).json(response);
     }
-    
+
     return res.status(404).send('Usuário e/ou senha incorreto(s)');
   }
 
@@ -66,6 +66,12 @@ class TeacherController {
       birth_date,
       cep,
     } = req.body;
+
+    const teacherExists = await Teacher.findOne({ cpf: cpf });
+
+    if (teacherExists) {
+      return res.status(400).json({ message: 'Professor ja cadastrado' })
+    }
 
     const teacher = await Teacher.create({
       name,

@@ -29,18 +29,18 @@ class MenuController {
 
     // Agora os hararios sao dinamicos e devem vir do banco de dados
 
-    // const hourReserveLoad = new Date();
-    // var hours = hourReserveLoad.getHours();
+    const hourReserveLoad = new Date();
+    var hours = hourReserveLoad.getHours();
 
-    // if (hours >= 6 && hours <= 10) {
-    //   const response = await MenuModel.findOne({ date: Data, type: "0" });
-    //   return res.status(200).json(response);
-    // }
+    if (hours >= 6 && hours <= 10) {
+      const response = await MenuModel.findOne({ date: Data, type: "0" });
+      return res.status(200).json(response);
+    }
 
-    // if (hours >= 12 && hours <= 10) {
-    //   const response = await MenuModel.findOne({ date: Data, type: "1" });
-    //   return res.status(200).json(response);
-    // }
+    if (hours >= 12 && hours <= 10) {
+      const response = await MenuModel.findOne({ date: Data, type: "1" });
+      return res.status(200).json(response);
+    }
 
     const response = await MenuModel.findOne({ date: Data });
     return res.status(200).json(response);

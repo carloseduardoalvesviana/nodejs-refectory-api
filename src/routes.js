@@ -81,6 +81,8 @@ routes.get("/node/courses/:id", CourseController.findOne);
 routes.post("/node/login/student", SessionController.auth);
 routes.post("/node/auth/professor", TeacherController.auth);
 routes.post("/node/auth/admin", AdminController.auth);
+
+// 
 routes.get("/node/students/found", StudentController.findNotConfirm);
 
 // Message

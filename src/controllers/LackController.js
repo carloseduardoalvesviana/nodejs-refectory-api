@@ -8,9 +8,8 @@ var { date } = require("../helpers/dateFormat");
 
 class LackController {
   async index(req, res) {
-    const response = await LackSchema.find();
-    const newResponse = response.map(r => r.bloqued ? { ...r, bloqueado: true } : null);
-    return res.status(200).json(newResponse);
+    const response = await LackSchema.find().populate('id_student').populate('id_student').exec();
+    return res.status(200).json(response);
   }
 
   async jobLack(req, res) {
