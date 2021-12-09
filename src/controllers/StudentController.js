@@ -69,12 +69,15 @@ class StudentController {
   async unlockStudent(req, res) {
     try {
       const id = req.body.id_student;
+      console.log(id);
+
       const student = await Student.findOne({ _id: id });
 
       // desbloqueia o aluno e zera a quantidade de faltas
       // obs o campo lack é somente pra controlar o bloqueio
       // caso queira fazer relatorio com a quantidade de faltas reais do aluno
       // existe um model chamado lack e parti dali.
+      // show de bola
       if (student.lack >= 3) {
         await Student.findOneAndUpdate(
           { _id: id },
