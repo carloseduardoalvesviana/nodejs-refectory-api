@@ -42,7 +42,7 @@ class MenuController {
     //   return res.status(200).json(response);
     // }
 
-    const response = await MenuModel.find({ date: Data });
+    const response = await MenuModel.findOne({ date: Data });
     return res.status(200).json(response);
   }
 
