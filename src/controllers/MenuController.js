@@ -55,7 +55,10 @@ class MenuController {
 
     if (dateExists) {
       if (dateExists.type == req.body.type) {
-        return res.status(400).json({ message: "menu ja existe" });
+        let type = dateExists.type == 0 ? "do almoço" : "da janta";
+        return res
+          .status(400)
+          .json({ message: `o cardápio ${type} já existe` });
       }
     }
 
@@ -85,8 +88,11 @@ class MenuController {
       const dateExists = await MenuModel.findOne({ date: date });
 
       if (dateExists) {
-        if (dateExists.type == req.body.type) {
-          return res.status(400).json({ message: "menu ja existe" });
+        if (dateExists.type == req.body.type && id != dateExists._id) {
+          let type = dateExists.type == 0 ? "do almoço" : "da janta";
+          return res
+            .status(400)
+            .json({ message: `o cardápio ${type} já existe` });
         }
       }
 
