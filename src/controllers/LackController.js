@@ -8,7 +8,10 @@ var { date } = require("../helpers/dateFormat");
 
 class LackController {
   async index(req, res) {
-    const response = await LackSchema.find().populate('id_student').populate('id_student').exec();
+    const response = await LackSchema.find()
+      .populate("id_student")
+      .populate("id_student")
+      .exec();
     return res.status(200).json(response);
   }
 
@@ -20,8 +23,19 @@ class LackController {
         .populate("id_student")
         .exec();
 
+      const students = await Student.find({});
+      // Retirar a permissão dos alunos
+      students.map(async (item) => {
+        await Student.findOneAndUpdate(
+          { _id: item._id },
+          {
+            permission: "não",
+          }
+        );
+      });
+
       const reserveLacks = reserves
-        .filter((item) => {
+        .filter(async (item) => {
           return item.confirm == "não";
         })
         .filter((item) => {
@@ -45,6 +59,7 @@ class LackController {
             { _id: item.id_student._id },
             {
               lack: infoStudent.lack + 1,
+              permission: "não",
             }
           );
 
