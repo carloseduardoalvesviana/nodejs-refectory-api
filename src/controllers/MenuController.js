@@ -82,7 +82,13 @@ class MenuController {
         hourConfirmReserve,
       };
 
-      console.log(data);
+      const dateExists = await MenuModel.findOne({ date: date });
+
+      if (dateExists) {
+        if (dateExists.type == req.body.type) {
+          return res.status(400).json({ message: "menu ja existe" });
+        }
+      }
 
       const response = await MenuModel.findOneAndUpdate(
         { _id: id },
