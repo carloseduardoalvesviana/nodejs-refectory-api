@@ -1,5 +1,6 @@
 const MenuModel = require("../models/Menu");
 var { getYear } = require("date-fns");
+var { dayOfWeek } = require("../helpers/dateFormat");
 
 class MenuController {
   async index(req, res) {
@@ -32,14 +33,17 @@ class MenuController {
     const hourReserveLoad = new Date();
     var hours = hourReserveLoad.getHours();
 
-    if (hours >= 6 && hours <= 10) {
+    if (hours >= 6 && hours <= 14) {
       const response = await MenuModel.findOne({ date: Data, type: "0" });
-      return res.status(200).json(response);
+      const json = { ...response._doc, dayOfWeek: dayOfWeek(response.date) };
+
+      return res.status(200).json(json);
     }
 
-    if (hours >= 12 && hours <= 10) {
+    if (hours >= 15 && hours <= 23) {
       const response = await MenuModel.findOne({ date: Data, type: "1" });
-      return res.status(200).json(response);
+      const json = { ...response._doc, dayOfWeek: dayOfWeek(response.date) };
+      return res.status(200).json(json);
     }
   }
 
@@ -94,7 +98,7 @@ class MenuController {
       );
 
       return res.json(response);
-    } catch (error) { }
+    } catch (error) {}
   }
 
   async delete(req, res) {
