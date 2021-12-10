@@ -82,7 +82,7 @@ routes.post("/node/login/student", SessionController.auth);
 routes.post("/node/auth/professor", TeacherController.auth);
 routes.post("/node/auth/admin", AdminController.auth);
 
-// 
+//
 routes.get("/node/students/found", StudentController.findNotConfirm);
 
 // Message
@@ -148,7 +148,7 @@ routes.post("/node/reserves/find/:id", ReserveController.find);
 routes.get("/node/reserves", ReserveController.index);
 
 routes.get("/node/lacks", LackController.index);
-routes.get("/node/job_lacks", LackController.jobLack);
+// routes.get("/node/job_lacks", LackController.jobLack);
 
 // listen
 module.exports = routes;

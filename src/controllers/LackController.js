@@ -17,13 +17,15 @@ class LackController {
 
   async jobLack(req, res) {
     try {
-      const today = format(new Date(), "yyyy-MM-dd");
-      const reserves = await ReserveModel.find({})
+      const reserveLacks = await ReserveModel.find({
+        confirm: "não",
+      })
         .populate("id_menu")
         .populate("id_student")
         .exec();
 
       const students = await Student.find({});
+
       // Retirar a permissão dos alunos
       students.map(async (item) => {
         await Student.findOneAndUpdate(
@@ -33,14 +35,6 @@ class LackController {
           }
         );
       });
-
-      const reserveLacks = reserves
-        .filter(async (item) => {
-          return item.confirm == "não";
-        })
-        .filter((item) => {
-          return date(item.id_menu.date) == today;
-        });
 
       reserveLacks.map(async (item) => {
         //verifica se existe o id da reserva a ser salva no model lack e não salva
