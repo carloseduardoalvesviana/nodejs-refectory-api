@@ -17,7 +17,7 @@ mongoose.connect(
 );
 
 // mongoose.connect('mongodb://127.0.0.1:27017/ifpi_refeitorio');
-cron.schedule("*/10 * * * * *", LackController.jobLack);
+cron.schedule("00 00 12 * * 0-6", LackController.jobLack);
 
 app.use(cors());
 app.use(express.json());
