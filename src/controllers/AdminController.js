@@ -5,20 +5,12 @@ class AdminController {
     const admins = await Admin.find({});
     return res.status(200).json(admins);
   }
-  async nutricionistas(req, res) {
-    const admins = await Admin.find({ permission: "nutri" });
-    return res.status(200).json(admins);
-  }
-
-  async findNutri(req, res) {
-    const id = req.params.id;
-    const nutricionista = await Admin.findOne({ _id: id });
-    return res.status(200).json(nutricionista);
-  }
 
   async auth(req, res) {
     const { email, password } = req.body;
+    console.log(email, password);
     const response = await Admin.findOne({ email: email, password: password });
+    console.log(response);
     if (response) {
       return res.status(200).json(response);
     }
@@ -105,6 +97,17 @@ class AdminController {
     return res
       .status(200)
       .json({ message: "Administrador deletado com sucesso!" });
+  }
+
+  async nutricionistas(req, res) {
+    const admins = await Admin.find({ permission: "nutri" });
+    return res.status(200).json(admins);
+  }
+
+  async findNutri(req, res) {
+    const id = req.params.id;
+    const nutricionista = await Admin.findOne({ _id: id });
+    return res.status(200).json(nutricionista);
   }
 }
 

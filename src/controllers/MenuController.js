@@ -34,15 +34,18 @@ class MenuController {
     var hours = hourReserveLoad.getHours();
 
     if (hours >= 6 && hours <= 14) {
-      const response = await MenuModel.findOne({ date: Data, type: "0" });
-      const json = { ...response._doc, dayOfWeek: dayOfWeek(response.date) };
-
+      let json = await MenuModel.findOne({ date: Data, type: "0" });
+      if (json) {
+        json = { ...json?._doc, dayOfWeek: dayOfWeek(json?._doc?.date) };
+      }
       return res.status(200).json(json);
     }
 
     if (hours >= 15 && hours <= 23) {
-      const response = await MenuModel.findOne({ date: Data, type: "1" });
-      const json = { ...response._doc, dayOfWeek: dayOfWeek(response.date) };
+      let json = await MenuModel.findOne({ date: Data, type: "1" });
+      if (json) {
+        json = { ...json?._doc, dayOfWeek: dayOfWeek(json?._doc?.date) };
+      }
       return res.status(200).json(json);
     }
   }

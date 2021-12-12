@@ -23,9 +23,7 @@ const LackController = require("./controllers/LackController");
 var { checkPermission } = require("./middleware/permission");
 
 // Entry point API
-routes.get("/node", checkPermission, (req, res) =>
-  res.json({ message: "Welcome to api" })
-);
+routes.get("/node", (req, res) => res.json({ message: "Welcome to api" }));
 
 routes.put("/node/verificar/update", NotificationStudentController.update);
 routes.get("/node/verificar_presenca", NotificationStudentController.index);
