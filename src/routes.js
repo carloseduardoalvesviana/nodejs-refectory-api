@@ -20,8 +20,12 @@ const ClassController = require("./controllers/ClassController");
 const AdminController = require("./controllers/AdminController");
 const ClassReservation = require("./controllers/ClassReservation");
 const LackController = require("./controllers/LackController");
+var { checkPermission } = require("./middleware/permission");
+
 // Entry point API
-routes.get("/node", (req, res) => res.json({ message: "Welcome to api" }));
+routes.get("/node", checkPermission, (req, res) =>
+  res.json({ message: "Welcome to api" })
+);
 
 routes.put("/node/verificar/update", NotificationStudentController.update);
 routes.get("/node/verificar_presenca", NotificationStudentController.index);
@@ -137,6 +141,10 @@ routes.get("/node/admins/index", AdminController.index);
 routes.put("/node/admin/update/:id", AdminController.update);
 routes.delete("/node/admin/delete/:id", AdminController.delete);
 routes.get("/node/admin/find/:id", AdminController.findOne);
+
+//nutricionistas
+routes.get("/node/nutricionistas", AdminController.nutricionistas);
+routes.get("/node/nutricionista/:id", AdminController.findNutri);
 
 // Import Student
 routes.post("/node/csv/import", upload.single("csv"), CsvController.read);
