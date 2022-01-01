@@ -1,8 +1,7 @@
 const LackSchema = require("../models/Lack");
 const ReserveModel = require("../models/Reserve");
 const Student = require("../models/Student");
-
-const { format } = require("date-fns");
+const { parse, startOfDay, endOfDay } = require("date-fns");
 
 var { date } = require("../helpers/dateFormat");
 
@@ -13,6 +12,35 @@ class LackController {
       .populate("id_student")
       .exec();
     return res.status(200).json(response);
+  }
+
+  async filterLack(req, res) {
+    try {
+      const { inicio, final, turma } = req.body;
+      if (!inicio && final) {
+              return res.status(400).json({message: 'Preencha as duas datas'});
+      }
+      if (inicio && !final) {
+              return res.status(400).json({message: 'Preencha as duas datas'});
+      }
+        let dateInicio = parse(inicio, "dd/MM/yyyy", new Date());
+        let dateFinal = parse(final, "dd/MM/yyyy", new Date());
+        const response = await LackSchema.find({
+        createdAt: {
+            $gte: startOfDay(dateInicio),
+            $lte: endOfDay(dateFinal)
+          }
+        })
+        .populate("id_student")
+        .populate("id_reserve")
+        .exec();
+      
+      return res.status(200).json(response);
+    } catch (error) {
+      return res.status(400).json(error);
+
+    }
+    
   }
 
   async jobLack(req, res) {
@@ -75,6 +103,7 @@ class LackController {
       return res.status(200).json(error);
     }
   }
+ 
 }
 
 module.exports = new LackController();
