@@ -14,6 +14,47 @@ class LackController {
     return res.status(200).json(response);
   }
 
+  async teste(req, res) {
+    const { inicio, final, turma } = req.body;
+    var results = await LackSchema.aggregate([
+      {
+        $lookup: {
+          from: 'students',
+          localField: 'id_student',
+          foreignField: '_id',
+          as: 'student',
+        },
+      },
+      {
+      $unwind: "$student"
+      },
+      {
+        $lookup: {
+          from: 'classes',
+          localField: 'student.id_class',
+          foreignField: '_id',
+          as: 'class',
+        },
+      },
+      {
+      $unwind: "$class"
+      },
+       {
+        $match: {
+          "class.description": { "$regex": turma, "$options": "i" }  
+        }
+      },
+      {
+        $project:{
+          "_id":1,
+          "name": "$student.name",
+          "turma": "$class.description"
+        }
+      }
+    ]);
+      return res.status(200).json(results);
+  }
+
   async filterLack(req, res) {
     try {
       const { inicio, final, turma } = req.body;
@@ -25,17 +66,28 @@ class LackController {
       }
         let dateInicio = parse(inicio, "dd/MM/yyyy", new Date());
         let dateFinal = parse(final, "dd/MM/yyyy", new Date());
-        const response = await LackSchema.find({
-        createdAt: {
-            $gte: startOfDay(dateInicio),
-            $lte: endOfDay(dateFinal)
-          }
-        })
-        .populate("id_student")
+        const response = await LackSchema.find({})
         .populate("id_reserve")
+        .populate({
+          path: 'id_student',
+          populate : {
+            path: 'id_class',
+            model: 'Class',
+            match: {
+              description: {$regex: '.*' + turma + '.*' }
+            },
+          },
+        })
         .exec();
+      let filter = [];
       
-      return res.status(200).json(response);
+     await response.map((item, index) => {
+        if (item.id_student.id_class) {
+          filter.push(item);
+        }
+      });
+        
+      return res.status(200).json(filter);
     } catch (error) {
       return res.status(400).json(error);
 
@@ -67,6 +119,7 @@ class LackController {
       reserveLacks.map(async (item) => {
         //verifica se existe o id da reserva a ser salva no model lack e não salva
         const reserve = await LackSchema.findOne({ id_reserve: item._id });
+        console.log(item);
         if (!reserve) {
           await LackSchema.create({
             id_student: item.id_student._id,

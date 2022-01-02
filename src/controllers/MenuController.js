@@ -24,12 +24,11 @@ class MenuController {
     const Data =
       (diaAtual > 9 ? diaAtual : "0" + diaAtual) +
       "/" +
-      mesAtual +
+      (mesAtual > 9 ? diaAtual : "0" + mesAtual) +
       "/" +
       anoAtual;
 
     // Agora os hararios sao dinamicos e devem vir do banco de dados
-
     const hourReserveLoad = new Date();
     var hours = hourReserveLoad.getHours();
 
