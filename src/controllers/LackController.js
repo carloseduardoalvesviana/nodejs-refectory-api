@@ -1,7 +1,7 @@
 const LackSchema = require("../models/Lack");
 const ReserveModel = require("../models/Reserve");
 const Student = require("../models/Student");
-const { parse, startOfDay, endOfDay } = require("date-fns");
+const { parse, startOfDay, endOfDay, } = require("date-fns");
 
 var { date } = require("../helpers/dateFormat");
 
@@ -16,6 +16,55 @@ class LackController {
 
   async teste(req, res) {
     const { inicio, final, turma } = req.body;
+    let dateInicio = parse(inicio, "dd/MM/yyyy", new Date());
+    let dateFinal = parse(final, "dd/MM/yyyy", new Date());
+    var queryWithDateInterval = {
+        $match: {
+          "class.description": { "$regex": turma, "$options": "i" },
+          createdAt: {$gte: startOfDay(dateInicio), $lt: endOfDay(dateFinal)}
+        }
+    }
+    var queryClass = {
+        $match: {
+          "class.description": { "$regex": turma, "$options": "i" },
+        }
+    }
+    
+    if (!inicio && !final && !turma) {
+       var results = await LackSchema.aggregate([
+      {
+        $lookup: {
+          from: 'students',
+          localField: 'id_student',
+          foreignField: '_id',
+          as: 'student',
+        },
+      },
+      {
+      $unwind: "$student"
+      },
+      {
+        $lookup: {
+          from: 'classes',
+          localField: 'student.id_class',
+          foreignField: '_id',
+          as: 'class',
+        },
+      },
+      {
+      $unwind: "$class"
+      },
+      {
+        $project:{
+          "_id": 1,
+          "createdAt": 1,
+          "name": "$student.name",
+          "turma": "$class.description"
+        }
+      }
+    ]);
+      return res.status(200).json(results);
+    }
     var results = await LackSchema.aggregate([
       {
         $lookup: {
@@ -39,14 +88,14 @@ class LackController {
       {
       $unwind: "$class"
       },
-       {
-        $match: {
-          "class.description": { "$regex": turma, "$options": "i" }  
-        }
-      },
+      //isso é usando somente para verificar se as datas foram informadas e não 
+      //atrapalhar na consulta caso não tenha
+      (inicio && final) ? queryWithDateInterval : queryClass
+       ,
       {
         $project:{
-          "_id":1,
+          "_id": 1,
+          "createdAt": 1,
           "name": "$student.name",
           "turma": "$class.description"
         }
