@@ -15,34 +15,42 @@ class LackController {
   }
 
   async teste(req, res) {
-    const { inicio, final, turma } = req.body;
+    const { inicio, final, turma, tipo } = req.body;
     let dateInicio = parse(inicio, "dd/MM/yyyy", new Date());
     let dateFinal = parse(final, "dd/MM/yyyy", new Date());
     var queryWithDateInterval = {
         $match: {
           "class.description": { "$regex": turma, "$options": "i" },
-          createdAt: {$gte: startOfDay(dateInicio), $lt: endOfDay(dateFinal)}
-        }
+          "menu.type": { "$regex": tipo, "$options": "i" },  
+          createdAt: {$gte: startOfDay(dateInicio), $lt: endOfDay(dateFinal)},
+      }
     }
-    var queryClass = {
+    var queryNotDate = {
         $match: {
           "class.description": { "$regex": turma, "$options": "i" },
+          "menu.type": { "$regex": tipo, "$options": "i" },
         }
     }
-    
-    if (!inicio && !final && !turma) {
-       var results = await LackSchema.aggregate([
+    if ((!inicio && final) || (inicio && !final)) {
+        return res.status(400).json({message: 'Informa as datas'});
+    }
+    if (!inicio && !final && !turma && !tipo) {
+      // você entendendo essa parte o restando do codigo funciona da
+      // mesma forma só que models diferentes
+      console.log(turma);
+      var results = await LackSchema.aggregate([
       {
-        $lookup: {
+          $lookup: {
+          // from -> mesmo nome usadas na colections do mongodb
           from: 'students',
+          // localField -> nome da relacao entre os models
           localField: 'id_student',
+          // foreignField -> chave que relaciona os models
           foreignField: '_id',
           as: 'student',
         },
       },
-      {
-      $unwind: "$student"
-      },
+      { $unwind: "$student" },
       {
         $lookup: {
           from: 'classes',
@@ -51,20 +59,41 @@ class LackController {
           as: 'class',
         },
       },
+      { $unwind: "$class" },
       {
-      $unwind: "$class"
+        $lookup: {
+          from: 'reserves',
+          localField: 'id_reserve',
+          foreignField: '_id',
+          as: 'reserve',
+        },
       },
+      { $unwind: "$reserve" },
+      {
+        $lookup: {
+          from: 'menus',
+          localField: 'reserve.id_menu',
+          foreignField: '_id',
+          as: 'menu',
+        },
+      },
+      { $unwind: "$menu" },
       {
         $project:{
           "_id": 1,
           "createdAt": 1,
           "name": "$student.name",
-          "turma": "$class.description"
+          "count_block": "$student.countBloqued",
+          "lacks": "$student.lack",
+          "turma": "$class.description",
+          "menu_type" : "$menu.type"
         }
       }
     ]);
       return res.status(200).json(results);
     }
+
+    // query caso não caia na condicao acima
     var results = await LackSchema.aggregate([
       {
         $lookup: {
@@ -74,9 +103,7 @@ class LackController {
           as: 'student',
         },
       },
-      {
-      $unwind: "$student"
-      },
+      { $unwind: "$student" },
       {
         $lookup: {
           from: 'classes',
@@ -85,19 +112,37 @@ class LackController {
           as: 'class',
         },
       },
+      { $unwind: "$class" },
       {
-      $unwind: "$class"
+        $lookup: {
+          from: 'reserves',
+          localField: 'id_reserve',
+          foreignField: '_id',
+          as: 'reserve',
+        },
       },
+      { $unwind: "$reserve" },
+      {
+        $lookup: {
+          from: 'menus',
+          localField: 'reserve.id_menu',
+          foreignField: '_id',
+          as: 'menu',
+        },
+      },
+      { $unwind: "$menu" },
       //isso é usando somente para verificar se as datas foram informadas e não 
       //atrapalhar na consulta caso não tenha
-      (inicio && final) ? queryWithDateInterval : queryClass
-       ,
+      (inicio && final) ? queryWithDateInterval : queryNotDate,
       {
         $project:{
           "_id": 1,
           "createdAt": 1,
           "name": "$student.name",
-          "turma": "$class.description"
+          "count_block": "$student.countBloqued",
+          "lacks": "$student.lack",
+          "turma": "$class.description",
+          "menu_type": "$menu.type",
         }
       }
     ]);
